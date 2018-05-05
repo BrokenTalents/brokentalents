@@ -157,7 +157,10 @@ function loadFPayloads(config) {
       Future.both,
       R.map(R.pipe(
         joinParticipantRosterMatchPayloadsToTelemetryPayloads,
-        R.map(R.omit(['_asset_id', '_participant_id', '_participant_ids', '_roster_id', '_roster_ids', '_match_id', 'Team'])),
+        R.map(R.pipe(
+          R.omit(['_asset_id', '_participant_id', '_participant_ids', '_roster_id', '_roster_ids', '_match_id', 'Team']),
+          R.set(R.lensProp('Count'), 1),
+        )),
       )),
     ), [
       loadFParticipantRosterMatchPayloads,

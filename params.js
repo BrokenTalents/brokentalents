@@ -1,6 +1,7 @@
 #!/usr/bin/node
 
-const R = require('ramda');
+const R = require('ramda'),
+  moment = require('moment');
 
 function paramsForHourSample(config) {
   const requestArgsForRegionStartEnd = R.curry((region, start, end) => [
@@ -9,17 +10,18 @@ function paramsForHourSample(config) {
       'filter[gameMode]': R.join(',', config.modes),
       'filter[createdAt-start]': start.toISOString(),
       'filter[createdAt-end]': end.toISOString(),
-      'page[limit]': '5',
+      'page[limit]': config.matchesPerRequest,
       'page[offset]': '0',
     }
   ]);
 
-  const requestsPerMinutePerRegion = Math.floor(config.rpm / config.regions.length);
-  const splitDurationMinutes = Math.floor(60 / requestsPerMinutePerRegion);
+  const intervalMinutes = moment.duration(config.interval, config.intervalUnit).as('minutes');
+  const requestsPerMinutePerRegion = Math.floor(config.requestsPerInterval / config.regions.length);
+  const splitDurationMinutes = Math.floor(intervalMinutes / requestsPerMinutePerRegion);
   const splitMoments = (hour) => R.map(
     (offsetIndex) => [
-      hour.clone().startOf('hour').minutes(offsetIndex * splitDurationMinutes),
-      hour.clone().startOf('hour').minutes((offsetIndex + 1) * splitDurationMinutes),
+      hour.clone().minutes(offsetIndex * splitDurationMinutes),
+      hour.clone().minutes((offsetIndex + 1) * splitDurationMinutes),
     ],
     R.range(0, requestsPerMinutePerRegion),
   );

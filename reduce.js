@@ -19,13 +19,9 @@ function aggregatePayloads(config) {
           R.prop(0),
         ),
         R.pipe(
-          R.project(config.sum),
+          R.project(R.concat(config.sum, R.of('Count'))),
           utils.mergeAllWith(R.add),
           utils.unlist,
-        ),
-        R.pipe(
-          R.length,
-          R.objOf('Count'),
         ),
       ]),
     ),

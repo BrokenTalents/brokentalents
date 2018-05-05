@@ -1,12 +1,13 @@
 #!/usr/bin/node
 
 const R = require('ramda'),
-  Future = require('fluture')
+  Future = require('fluture'),
+  fs = require('fs'),
   fsPath = require('fs-path');
 
 function loadFPayloads(config) {
   return R.curry((file) =>
-    Future.node((cb) => fsPath.readFile(file, 'utf8', cb))
+    Future.node((cb) => fs.readFile(file, 'utf8', cb))
           .chain(Future.encase(JSON.parse))
   );
 }
@@ -14,6 +15,7 @@ function loadFPayloads(config) {
 function saveFPayloads(config) {
   return R.curry((file, data) =>
     Future.node((cb) => fsPath.writeFile(file, JSON.stringify(data), cb))
+    .map(() => data)
   );
 }
 
@@ -23,8 +25,15 @@ function saveFPayloadsTimestamped(config) {
   );
 }
 
+function loadFPayloadsTimestamped(config) {
+  return R.curry((timestamp) =>
+    loadFPayloads(config)(config.pattern(timestamp))
+  );
+}
+
 module.exports = {
   loadFPayloads,
+  loadFPayloadsTimestamped,
   saveFPayloads,
   saveFPayloadsTimestamped,
 };

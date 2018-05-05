@@ -3,31 +3,25 @@
 const R  = require('ramda'),
   Future = require('fluture'),
   moment = require('moment'),
-  source = require('./source'),
-  params = require('./params'),
   reduce = require('./reduce'),
-  file   = require('./file'),
+  source = require('./source'),
   config = require('./config');
 
-const paramsForHourSample = params.paramsForHourSample(config.api);
-const loadFApi            = source.loadFApi(config.etl);
-const saveFPayloads       = file.saveFPayloadsTimestamped(config.file);
-const aggregatePayloads   = reduce.aggregatePayloads(config.reduce);
-const deriveStatistics    = reduce.deriveStatistics(config.reduce);
-
-const requestsForHour = (timestamp) => R.map(R.apply(loadFApi), paramsForHourSample(timestamp));
-
-function processFPastHour(config) {
-  return (timestamp) =>
-    Future.parallel(1, requestsForHour(timestamp))
-      .map(R.compose(deriveStatistics, aggregatePayloads, R.unnest))
-      .chain(saveFPayloads(timestamp));
-}
+const loadFTimestamped = source.loadFTimestamped(config);
+const deriveStatistics = reduce.deriveStatistics(config.reduce);
+const aggregatePayloads = reduce.aggregatePayloads(config.reduce);
 
 function main() {
-  const now = moment().subtract(1, 'hours').startOf('hour');
-  console.log(requestsForHour(now));
-  processFPastHour(config)(now).fork(console.error, console.log);
+  const firstOfMay = moment('2018-05-01');
+
+  const later = R.curry((base, hs) => base.clone().add(hs, 'hours'));
+  const hours = R.range(0, 24 * 4);
+  const laterMoments = R.map(later(firstOfMay), hours);
+
+  const futures = R.map(loadFTimestamped, laterMoments);
+  Future.parallel(1, futures)
+    .map(R.compose(deriveStatistics, aggregatePayloads, R.unnest))
+    .fork(console.error, (d) => console.log(JSON.stringify(d, null, 2)));
 }
 
 main();
