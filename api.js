@@ -1,17 +1,17 @@
 #!/usr/bin/node
 
-const requestP = require('request-promise')
-  Future = require('fluture');
+const requestP = require('request-promise'),
+  config = require('./config'),
+  Future = require('fluture'),
+  FutureRetry = require('fluture-retry');
 
-const API_KEY = process.env.API_KEY || require('./secret').apikey,
-  API_BASE = 'https://api.dc01.gamelockerapp.com',
-  API_TIMEOUT = 1; // seconds
+const API_KEY = process.env.API_KEY || require('./secret').apikey;
 
 const requestF = Future.encaseP(requestP);
 
 function apiRequest(path, query) {
-  return requestF({
-    uri: API_BASE + path,
+  return FutureRetry.retryLinearly(requestF({
+    uri: config.api.baseUrl + path,
     headers: {
       'X-Title-Id': 'semc-vainglory',
       'Authorization': API_KEY
@@ -20,20 +20,20 @@ function apiRequest(path, query) {
     json: true,
     gzip: true,
     forever: true,
-    timeout: API_TIMEOUT*1000,
+    timeout: config.api.timeout * 1000,
     strictSSL: true
-  });
+  }));
 }
 
 function awsRequest(url) {
-  return requestF({
+  return FutureRetry.retryLinearly(requestF({
     uri: url,
     json: true,
     gzip: true,
     forever: true,
-    timeout: API_TIMEOUT*1000,
+    timeout: config.api.timeout * 1000,
     strictSSL: true
-  });
+  }));
 }
 
 module.exports = {
