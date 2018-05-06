@@ -19,9 +19,10 @@ function doFetchProcessStoreHour(config) {
 
   return (timestamp) => Future.parallel(1, requestsForHour(timestamp))
     .map(R.compose(aggregatePayloads, R.unnest))
-    .chain(/*R.map(R.chain(Future.after(intervalSleep),*/ saveFPayloads(timestamp))/*))*/
-    .chain(Future.after(intervalSleep));
-  // TODO sleeps after request; throttling rpm should happen
+    .chainRej((err) => { console.error(err); return Future.of({}); }) // fail silently
+    .chain(saveFPayloads(timestamp));
+    //.chain(Future.after(intervalSleep));
+  // TODO should sleep after request; throttling rpm should happen
   // at a higher level though. CPU / IO / AWS requests stall
   // as well
 }
