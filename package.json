@@ -1,0 +1,33 @@
+{
+  "name": "brokentalents",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bulma": "^0.7.1",
+    "fluture": "^8.0.2",
+    "fluture-retry": "^1.0.0",
+    "fs-path": "^0.0.24",
+    "moment": "^2.22.1",
+    "node-fetch": "^2.1.2",
+    "ramda": "^0.25.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
+    "vainglory": "^1.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrokenTalents/brokentalents.github.io.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/BrokenTalents/brokentalents.github.io/issues"
+  },
+  "homepage": "https://github.com/BrokenTalents/brokentalents.github.io#readme"
+}
