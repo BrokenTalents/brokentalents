@@ -31,10 +31,7 @@ function aggregatePayloads(config) {
 }
 
 function deriveStatistics(config) {
-  const sorter = R.converge(R.multiply, [
-    R.prop('Winner'),
-    R.prop('Count'),
-  ]);
+  const sorter = R.compose(R.defaultTo(0), R.prop('Winner'));
 
   // divide sums by counts = averages
   const transformer = R.map(
@@ -45,7 +42,7 @@ function deriveStatistics(config) {
     ])
   );
 
-  return R.compose(R.sortBy(sorter), transformer);
+  return R.compose(transformer, R.sortBy(sorter));
 }
 
 module.exports = {
