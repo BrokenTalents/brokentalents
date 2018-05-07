@@ -1,0 +1,10 @@
+# brokentalents.fun
+
+## Setup
+
+ * `npm install`
+ * create backend/secret.js as `module.exports.apikey = 'yourapikey';` or export the env var `API_KEY=""`
+
+## Updating the data
+
+`npm run backend`
