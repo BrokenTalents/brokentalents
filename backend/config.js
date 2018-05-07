@@ -54,6 +54,6 @@ module.exports = {
     sum: ['Level', 'Winner'],
   },
   file: {
-    pattern: (moment) => `./data/${hashSettings(module.exports)}/${moment.toISOString()}.json`,
+    pattern: (moment) => `../data/${hashSettings(module.exports)}/${moment.toISOString()}.json`,
   },
 };
