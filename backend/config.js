@@ -55,5 +55,6 @@ module.exports = {
   },
   file: {
     pattern: (moment) => `../data/${hashSettings(module.exports)}/${moment.toISOString()}.json`,
+    reportPattern: () => `../data/${hashSettings(module.exports)}/report.json`,
   },
 };
