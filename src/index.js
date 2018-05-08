@@ -4,7 +4,7 @@ import 'buefy/lib/buefy.css'
 
 import App from './App.vue';
 
-Vue.use(Buefy)
+Vue.use(Buefy);
 
 new Vue({
   el: '#app',
