@@ -9,12 +9,7 @@
           </b-table-column>
 
           <b-table-column field="Talent" label="Talent">
-              <template v-if="!!props.row.Talent && props.row.Talent != 'NoTalent'">
-              {{ props.row.Talent.substring(props.row.Talent.lastIndexOf('_') + 1, props.row.Talent.length - 1) }}
-              </template>
-              <template v-else>
-              (none)
-              </template>
+              {{ talentSlugToName(props.row.Talent) }}
           </b-table-column>
 
           <b-table-column field="Level" label="Average Level" sortable numeric>
@@ -42,13 +37,26 @@
 <script>
 import Vue from 'vue';
 
+function talentSlugToName(talent) {
+  if (talent == '' || talent == undefined) {
+    return 'No Talent';
+  }
+
+  return talent.substring(talent.lastIndexOf('_') + 1, talent.length - 1) // snake case to words
+               .replace(/([A-Z])/g, (s) => ' ' + s.toLowerCase())
+               .split(' ') // capitalize first letter
+               .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+               .join(' ');
+}
+
 export default Vue.component('report-table', {
-    props: [ 'report', 'totalPicks' ],
-    data: function() {
-      return {
-      };
-    },
-    computed: {
-    },
+  props: [ 'report', 'totalPicks' ],
+  data: function() {
+    return {
+      talentSlugToName,
+    };
+  },
+  computed: {
+  },
 });
 </script>
