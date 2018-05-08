@@ -7,7 +7,7 @@
             Broken Talents Fun
           </h1>
           <h2 class="subtitle">
-            Tilting since 2017
+            Tilting Brawlers since May 2017
           </h2>
         </div>
       </div>
