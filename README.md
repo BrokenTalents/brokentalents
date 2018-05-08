@@ -9,7 +9,18 @@
 
 `npm run backend`
 
+## Building the frontend
+
+ * production: `npm run build`
+ * development: `npm run dev`
+
 ## Overview
+
+### Frontend
+
+The frontend is written with the [Vue](https://vuejs.org) JavaScript framework and the [Bulma](https://bulma.io) CSS framework using [Buefy](https://buefy.github.io), built by [Webpack](https://webpack.js.org) with [Babel](https://babeljs.io) for cross browser support. It is hosted on GitHub pages.
+
+### Backend
 
 ![backend flowchart](assets/backend-flow.png)
 
