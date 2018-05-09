@@ -7,8 +7,7 @@
           <img :src="'dist/assets/hero-icons/' + hero.toLowerCase() + '.png'" :alt="entry.Actor">
         </figure>
         <figure class="image is-64x64">
-          <img :src="'dist/assets/talent-icons-small/' + hero + '/' + hero + '_Rare.png'" :alt="entry.Talent">
-          <!-- TODO Rarity map -->
+          <img :src="'dist/assets/talent-icons-small/' + hero + '/' + hero + '_' + rarity + '.png'" :alt="hero + ' ' + rarity">
         </figure>
       </div>
       <div class="media-content">
@@ -22,6 +21,7 @@
 
 <script>
 import Vue from 'vue';
+import * as maps from './maps/maps';
 
 export default Vue.component('report-tile', {
     props: [ 'title', 'content', 'entry' ],
@@ -31,7 +31,10 @@ export default Vue.component('report-tile', {
     },
     computed: {
       hero: function() {
-        return this.entry.Actor.substring(1, this.entry.Actor.length - 1);
+        return maps.getHero(this.entry.Actor);
+      },
+      rarity: function() {
+        return maps.getTalentRarity(this.entry.Talent);
       },
     },
 });
