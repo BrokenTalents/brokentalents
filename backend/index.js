@@ -11,6 +11,7 @@ const R  = require('ramda'),
 const loadFTimestamped = source.loadFTimestamped(config);
 const deriveStatistics = reduce.deriveStatistics(config.reduce);
 const aggregatePayloads = reduce.aggregatePayloads(config.reduce);
+const cleanPayloads = reduce.cleanPayloads(config.reduce);
 const saveFPayloads = file.saveFPayloads(config.file);
 
 function main() {
@@ -22,7 +23,7 @@ function main() {
 
   const futures = R.map(loadFTimestamped, laterMoments);
   Future.parallel(1, futures)
-    .map(R.compose(deriveStatistics, aggregatePayloads, R.unnest))
+    .map(R.compose(deriveStatistics, aggregatePayloads, cleanPayloads, R.unnest))
     .chain(saveFPayloads(config.file.reportPattern()))
     .fork(console.error, (d) => console.log(JSON.stringify(d, null, 2)));
 }
