@@ -39,7 +39,7 @@
             </b-tab-item>
 
             <b-tab-item label="Battle Royale">
-                <h2 class="title is-2">Battle RoyaleHero Statistics</h2>
+                <h2 class="title is-2">Battle Royale Hero Statistics</h2>
                 <report-table :report="reports.casual_aral" :totalPicks="totalPicks.casual_aral"></report-table>
             </b-tab-item>
         </b-tabs>
