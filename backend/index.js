@@ -17,7 +17,7 @@ function main() {
   const firstOfMay = moment('2018-05-01');
 
   const later = R.curry((base, hs) => base.clone().add(hs, 'hours'));
-  const hours = R.range(0, 24 * 7 + 10);
+  const hours = R.range(0, 24 * 9 + 12);
   const laterMoments = R.map(later(firstOfMay), hours);
 
   const futures = R.map(loadFTimestamped, laterMoments);
