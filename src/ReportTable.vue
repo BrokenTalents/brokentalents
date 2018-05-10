@@ -9,7 +9,7 @@
           </b-table-column>
 
           <b-table-column field="Talent" label="Talent">
-              {{ talentSlugToName(props.row.Talent) }}
+              {{ getTalentName(props.row.Talent) }}
           </b-table-column>
 
           <b-table-column field="Level" label="Average Level" sortable numeric>
@@ -36,24 +36,13 @@
 
 <script>
 import Vue from 'vue';
-
-function talentSlugToName(talent) {
-  if (talent == '' || talent == undefined) {
-    return 'No Talent';
-  }
-
-  return talent.substring(talent.lastIndexOf('_') + 1, talent.length - 1) // snake case to words
-               .replace(/([A-Z])/g, (s) => ' ' + s.toLowerCase())
-               .split(' ') // capitalize first letter
-               .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-               .join(' ');
-}
+import * as maps from './maps/maps';
 
 export default Vue.component('report-table', {
   props: [ 'report', 'totalPicks' ],
   data: function() {
     return {
-      talentSlugToName,
+      getTalentName: maps.getTalentName,
     };
   },
   computed: {
