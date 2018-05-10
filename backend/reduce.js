@@ -3,6 +3,13 @@
 const R = require('ramda'),
   utils = require('./utils');
 
+function cleanPayloads(config) {
+  return R.map(R.pipe(
+    // some Talents are 'null', some are 'NoTalent'
+    R.over(R.lensProp('Talent'), R.defaultTo('NoTalent')),
+  ));
+}
+
 function aggregatePayloads(config) {
   // Ramda group() only groups neighbors, so sort beforehand
   const sorter  = R.props(config.group);
@@ -46,6 +53,7 @@ function deriveStatistics(config) {
 }
 
 module.exports = {
+  cleanPayloads,
   aggregatePayloads,
   deriveStatistics,
 };
