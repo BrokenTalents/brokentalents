@@ -3,47 +3,41 @@
     <section class="hero">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">
-            Vainglory Broken Talents Fun Statistics
-          </h1>
-          <h2 class="subtitle">
-            Tilting Brawlers since May 2017
-          </h2>
+          <h1 class="title">Vainglory Broken Talents Fun Statistics</h1>
+          <h2 class="subtitle">Tilting Brawlers since May 2017</h2>
         </div>
       </div>
     </section>
 
-    <section>
-        <b-tabs v-model="activeTab">
-            <b-tab-item label="Blitz">
-                <div class="tile is-ancestor">
-                  <div class="tile is-parent">
-                      <talent-box class="tile is-child is-warning notification"
-                                   title="Overpowered!"
-                                   :entry="topWins.blitz_pvp_ranked">
-                        {{ Math.round(100 * topWins.blitz_pvp_ranked.Winner) }}% Win Rate
-                      </talent-box>
-                 </div>
+    <b-tabs v-model="activeTab">
+      <b-tab-item label="Blitz">
+        <div class="tile is-ancestor">
+          <div class="tile is-parent">
+            <talent-box class="tile is-child is-warning notification"
+                        title="Overpowered!"
+                        :entry="topWins.blitz_pvp_ranked">
+              {{ Math.round(100 * topWins.blitz_pvp_ranked.Winner) }}% Win Rate
+            </talent-box>
+          </div>
 
-                  <div class="tile is-parent">
-                      <talent-box class="tile is-child is-success notification"
-                                   title="Trending"
-                                   :entry="topPicks.blitz_pvp_ranked">
-                        {{ (100 * 6 * topPicks.blitz_pvp_ranked.Count / totalPicks.blitz_pvp_ranked).toFixed(2) }}% Pick Rate
-                      </talent-box>
-                  </div>
-                </div>
+          <div class="tile is-parent">
+            <talent-box class="tile is-child is-success notification"
+                        title="Trending"
+                        :entry="topPicks.blitz_pvp_ranked">
+              {{ (100 * 6 * topPicks.blitz_pvp_ranked.Count / totalPicks.blitz_pvp_ranked).toFixed(2) }}% Pick Rate
+            </talent-box>
+          </div>
+        </div>
 
-                <h2 class="title is-2">Blitz Hero Statistics</h2>
-                <report-table :report="reports.blitz_pvp_ranked" :totalPicks="totalPicks.blitz_pvp_ranked"></report-table>
-            </b-tab-item>
+        <h2 class="title is-2">Blitz Hero Statistics</h2>
+        <report-table :report="reports.blitz_pvp_ranked" :totalPicks="totalPicks.blitz_pvp_ranked"></report-table>
+      </b-tab-item>
 
-            <b-tab-item label="Battle Royale">
-                <h2 class="title is-2">Battle Royale Hero Statistics</h2>
-                <report-table :report="reports.casual_aral" :totalPicks="totalPicks.casual_aral"></report-table>
-            </b-tab-item>
-        </b-tabs>
-    </section>
+      <b-tab-item label="Battle Royale">
+        <h2 class="title is-2">Battle Royale Hero Statistics</h2>
+        <report-table :report="reports.casual_aral" :totalPicks="totalPicks.casual_aral"></report-table>
+      </b-tab-item>
+    </b-tabs>
   </div>
 </template>
 
@@ -66,8 +60,8 @@ for(let mode of MODES) {
   totalPicks[mode] = report.map((entry) => entry.Count).reduce((agg, cur) => agg + cur, 0);
   topPicks[mode] = reports[mode].sort((entry1, entry2) => entry2.Count - entry1.Count)[0];
   topWins[mode] = reports[mode]
-          .filter((entry) => 100 * 6 * entry.Count / totalPicks[mode] > 0.05)
-          .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
+    .filter((entry) => 100 * 6 * entry.Count / totalPicks[mode] > 0.05)
+    .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
 }
 
 export default {

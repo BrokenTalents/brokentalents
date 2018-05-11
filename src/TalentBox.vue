@@ -24,18 +24,18 @@ import Vue from 'vue';
 import * as maps from './maps/maps';
 
 export default Vue.component('talent-box', {
-    props: [ 'title', 'content', 'entry' ],
-    data: function() {
-      return {
-      };
+  props: [ 'title', 'content', 'entry' ],
+  data: function() {
+    return {
+    };
+  },
+  computed: {
+    hero: function() {
+      return maps.getHero(this.entry.Actor);
     },
-    computed: {
-      hero: function() {
-        return maps.getHero(this.entry.Actor);
-      },
-      rarity: function() {
-        return maps.getTalentRarity(this.entry.Talent);
-      },
+    rarity: function() {
+      return maps.getTalentRarity(this.entry.Talent);
     },
+  },
 });
 </script>
