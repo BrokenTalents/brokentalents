@@ -23,7 +23,7 @@
 import Vue from 'vue';
 import * as maps from './maps/maps';
 
-export default Vue.component('report-tile', {
+export default Vue.component('talent-box', {
     props: [ 'title', 'content', 'entry' ],
     data: function() {
       return {

@@ -18,19 +18,19 @@
             <b-tab-item label="Blitz">
                 <div class="tile is-ancestor">
                   <div class="tile is-parent">
-                      <report-tile class="tile is-child is-warning notification"
+                      <talent-box class="tile is-child is-warning notification"
                                    title="Overpowered!"
                                    :entry="topWins.blitz_pvp_ranked">
                         {{ Math.round(100 * topWins.blitz_pvp_ranked.Winner) }}% Win Rate
-                      </report-tile>
+                      </talent-box>
                  </div>
 
                   <div class="tile is-parent">
-                      <report-tile class="tile is-child is-success notification"
+                      <talent-box class="tile is-child is-success notification"
                                    title="Trending"
                                    :entry="topPicks.blitz_pvp_ranked">
                         {{ (100 * 6 * topPicks.blitz_pvp_ranked.Count / totalPicks.blitz_pvp_ranked).toFixed(2) }}% Pick Rate
-                      </report-tile>
+                      </talent-box>
                   </div>
                 </div>
 
@@ -50,7 +50,7 @@
 <script>
 import report from '../data/98aae7f0/report.json';
 import ReportTable from './ReportTable.vue';
-import ReportTile from './ReportTile.vue';
+import TalentBox from './TalentBox.vue';
 
 const MODES = [
   'casual_aral', 'blitz_pvp_ranked'
@@ -83,7 +83,7 @@ export default {
   },
   components: {
     ReportTable,
-    ReportTile,
+    TalentBox,
   },
 };
 </script>
