@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <h1 class="title">
-            Broken Talents Fun
+            Vainglory Broken Talents Fun Statistics
           </h1>
           <h2 class="subtitle">
             Tilting Brawlers since May 2017
