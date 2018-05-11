@@ -1,5 +1,7 @@
 <template>
   <div>
+    <hero-search-box :reportService="reportService"></hero-search-box>
+
     <h2 class="title is-2">Battle Royale Hero Statistics</h2>
     <report-table :report="report" :totalPicks="totalPicks"></report-table>
   </div>
@@ -8,6 +10,7 @@
 <script>
 import Vue from 'vue';
 import ReportTable from './ReportTable.vue';
+import HeroSearchBox from './HeroSearchBox.vue';
 
 export default Vue.component('battle-royale-tab', {
   props: [ 'reportService' ],
@@ -21,6 +24,7 @@ export default Vue.component('battle-royale-tab', {
   },
   components: {
     ReportTable,
+    HeroSearchBox,
   },
 });
 </script>
