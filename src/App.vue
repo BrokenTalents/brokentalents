@@ -9,75 +9,36 @@
       </div>
     </section>
 
-    <b-tabs v-model="activeTab">
+    <b-tabs>
       <b-tab-item label="Blitz">
-        <div class="tile is-ancestor">
-          <div class="tile is-parent">
-            <talent-box class="tile is-child is-warning notification"
-                        title="Overpowered!"
-                        :entry="topWins.blitz_pvp_ranked">
-              {{ Math.round(100 * topWins.blitz_pvp_ranked.Winner) }}% Win Rate
-            </talent-box>
-          </div>
-
-          <div class="tile is-parent">
-            <talent-box class="tile is-child is-success notification"
-                        title="Trending"
-                        :entry="topPicks.blitz_pvp_ranked">
-              {{ (100 * 6 * topPicks.blitz_pvp_ranked.Count / totalPicks.blitz_pvp_ranked).toFixed(2) }}% Pick Rate
-            </talent-box>
-          </div>
-        </div>
-
-        <h2 class="title is-2">Blitz Hero Statistics</h2>
-        <report-table :report="reports.blitz_pvp_ranked" :totalPicks="totalPicks.blitz_pvp_ranked"></report-table>
+        <blitz-tab :reportService="reportService"></blitz-tab>
       </b-tab-item>
 
       <b-tab-item label="Battle Royale">
-        <h2 class="title is-2">Battle Royale Hero Statistics</h2>
-        <report-table :report="reports.casual_aral" :totalPicks="totalPicks.casual_aral"></report-table>
+        <battle-royale-tab :reportService="reportService"></battle-royale-tab>
       </b-tab-item>
     </b-tabs>
   </div>
 </template>
 
 <script>
-import report from '../data/98aae7f0/report.json';
-import ReportTable from './ReportTable.vue';
-import TalentBox from './TalentBox.vue';
+import Vue from 'vue';
+import BlitzTab from './BlitzTab.vue';
+import BattleRoyaleTab from './BattleRoyaleTab.vue';
+import ReportService from './report-service.js';
 
-const MODES = [
-  'casual_aral', 'blitz_pvp_ranked'
-];
-
-const reports = {};
-const totalPicks = {};
-const topPicks = {};
-const topWins = {};
-
-for(let mode of MODES) {
-  reports[mode] = report.filter((entry) => entry.Mode == mode);
-  totalPicks[mode] = report.map((entry) => entry.Count).reduce((agg, cur) => agg + cur, 0);
-  topPicks[mode] = reports[mode].sort((entry1, entry2) => entry2.Count - entry1.Count)[0];
-  topWins[mode] = reports[mode]
-    .filter((entry) => 100 * 6 * entry.Count / totalPicks[mode] > 0.05)
-    .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
-}
+const reportService = new ReportService();
 
 export default {
   name: 'app',
   data: function() {
     return {
-      reports,
-      topPicks,
-      topWins,
-      totalPicks,
-      activeTab: 0,
+      reportService,
     };
   },
   components: {
-    ReportTable,
-    TalentBox,
+    BlitzTab,
+    BattleRoyaleTab,
   },
 };
 </script>
