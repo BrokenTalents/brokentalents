@@ -1,18 +1,4 @@
 <template>
-  <!-- <div class="box">
-      <div class="media-content">
-        <div class="content">
-          
-          <figure class="image hero-image-slot">
-            <img class="hero-image" :src="'dist/assets/hero-icons/' + hero + '.png'" :alt="entry.Actor">
-          </figure>
-          
-          <talent-image :entry="entry"></talent-image>
-          <slot></slot>
-        </div>
-      </div>
-    </article>
-  </div> -->
 <div>
   <p class="title-box">{{ title }}</p>
   <div class="columns">
@@ -21,10 +7,9 @@
       <figure class="image is-64x64 hero-image-slot">
         <img class="hero-image" :src="'dist/assets/hero-icons/' + hero + '.png'" :alt="entry.Actor">
       </figure>
-      <p class="hero-name">{{entry.Actor.replace(/\*/g, "")}}</p>
+      <p class="hero-name">{{ hero }}</p>
     </div>
     <div class="column value is-centered">
-      
       <talent-image :entry="entry" :size="64"></talent-image>
         {{ value }}{{ label }}
         <div class="type">{{ type }}</div>
