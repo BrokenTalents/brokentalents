@@ -5,16 +5,27 @@
              :default-sort-directon="'desc'">
       <template slot-scope="props">
         <b-table-column field="Actor" label="Hero" sortable>
-          {{ props.row.Actor.substring(1, props.row.Actor.length - 1) }}
+          <div style="display: flex; align-items: center">
+          <figure class="image is-48x48" style="padding: 5px;">
+            <img style="border-radius: 50%;" :src="'dist/assets/hero-icons/' + getHero(props.row.Actor) + '.png'" :alt="getHero(props.row.Actor)">
+          </figure>
+          {{ getHero(props.row.Actor) }}
+          </div>
         </b-table-column>
 
         <b-table-column field="Talent" label="Talent">
-          {{ getTalentName(props.row.Talent) }}
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            {{ getTalentName(props.row.Talent) }}
+            <talent-image :entry="props.row" :size="48"></talent-image>
+          </div>
         </b-table-column>
 
         <b-table-column field="Level" label="Average Level" sortable numeric>
           <template v-if="!!props.row.Level">
             {{ props.row.Level.toFixed(2) }}
+          </template>
+          <template v-if="!props.row.Level">
+            0
           </template>
         </b-table-column>
 
@@ -43,6 +54,7 @@ export default Vue.component('report-table', {
   data: function() {
     return {
       getTalentName: maps.getTalentName,
+      getHero: maps.getHero
     };
   },
   computed: {
