@@ -21,15 +21,15 @@
 
       <div class="tile is-parent">
         <talent-box class="tile is-child is-dark notification"
-                    title="Highest Leveled Up"
-                    type="Avg Level"
+                    title="Highest Level"
+                    type="Average Level"
                     :value="(highestLevelAvg.Level).toFixed(2)"
                     :entry="highestLevelAvg" />
       </div>
       <div class="tile is-parent">
         <talent-box class="tile is-child is-dark notification"
-                    title="Lowest Leveled Up"
-                    type="Avg Level"
+                    title="Lowest Level"
+                    type="Average Level"
                     :value="(lowestLevelAvg.Level).toFixed(2)"
                     :entry="lowestLevelAvg" />
       </div>
