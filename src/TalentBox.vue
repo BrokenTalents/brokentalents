@@ -5,7 +5,7 @@
 
     <div class="column is-centered">
       <figure class="image is-64x64 hero-image-slot">
-        <img class="hero-image" :src="'dist/assets/hero-icons/' + hero + '.png'" :alt="entry.Actor">
+        <img class="hero-image" :src="'dist/assets/hero-icons/' + hero.toLowerCase() + '.png'" :alt="entry.Actor">
       </figure>
       <p class="hero-name">{{ hero }}</p>
     </div>
@@ -70,7 +70,7 @@ export default Vue.component("talent-box", {
   props: ["title", "content", "entry", "type", "value", "label"],
   data: function() {
     return {
-      hero: maps.getHero(this.entry.Actor).toLowerCase()
+      hero: maps.getHero(this.entry.Actor),
     };
   },
   components: {
