@@ -14,7 +14,10 @@
         </b-table-column>
 
         <b-table-column field="Talent" label="Talent">
-          <talent-image :entry="props.row"></talent-image>
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span>{{ getTalentName(props.row.Talent) }}</span>
+            <talent-image :entry="props.row" :size="48"></talent-image>
+          </div>
         </b-table-column>
 
         <b-table-column field="Winner" label="Win Rate" sortable numeric>
@@ -39,6 +42,7 @@ export default Vue.component('hero-search-box', {
       hero: maps.getHero(this.reportService.getTopPick('casual_aral').Actor),
       totalPicks: this.reportService.getTotalPicks('casual_aral'),
       getHero: maps.getHero,
+      getTalentName: maps.getTalentName,
     };
   },
   computed: {
