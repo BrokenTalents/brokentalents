@@ -2,19 +2,36 @@
   <div>
     <div class="tile is-ancestor">
       <div class="tile is-parent">
-        <talent-box class="tile is-child is-warning notification"
-                    title="Overpowered!"
-                    :entry="topWin">
-          {{ Math.round(100 * topWin.Winner) }}% Win Rate
-        </talent-box>
+        <talent-box class="tile is-child is-dark notification"
+                    title="Overpowered"
+                    type="Win Rate"
+                    label="%"
+                    :value="Math.round(100 * topWin.Winner)"
+                    :entry="topWin" />
       </div>
 
       <div class="tile is-parent">
-        <talent-box class="tile is-child is-success notification"
+        <talent-box class="tile is-child is-dark notification"
                     title="Trending"
-                    :entry="topPick">
-          {{ (100 * 6 * topPick.Count / totalPicks).toFixed(2) }}% Pick Rate
-        </talent-box>
+                    type="Pick Rate"
+                    label="%"
+                    :value="(100 * 6 * topPick.Count / totalPicks).toFixed(2)"
+                    :entry="topPick" />
+      </div>
+
+      <div class="tile is-parent">
+        <talent-box class="tile is-child is-dark notification"
+                    title="Highest Leveled Up"
+                    type="Avg Level"
+                    :value="(highestLevelAvg.Level).toFixed(2)"
+                    :entry="highestLevelAvg" />
+      </div>
+      <div class="tile is-parent">
+        <talent-box class="tile is-child is-dark notification"
+                    title="Lowest Leveled Up"
+                    type="Avg Level"
+                    :value="(lowestLevelAvg.Level).toFixed(2)"
+                    :entry="lowestLevelAvg" />
       </div>
     </div>
 
@@ -36,6 +53,8 @@ export default Vue.component('blitz-tab', {
       topWin: this.reportService.getTopWin('blitz_pvp_ranked'),
       topPick: this.reportService.getTopPick('blitz_pvp_ranked'),
       totalPicks: this.reportService.getTotalPicks('blitz_pvp_ranked'),
+      highestLevelAvg: this.reportService.getHighestLevelAvg('blitz_pvp_ranked'),
+      lowestLevelAvg: this.reportService.getLowestLevelAvg('blitz_pvp_ranked')
     };
   },
   computed: {

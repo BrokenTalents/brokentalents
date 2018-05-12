@@ -1,5 +1,5 @@
 <template>
-    <b-tabs v-model="tabIndex">
+    <b-tabs v-model="tabIndex" expanded  type="is-toggle" >
       <b-tab-item label="Blitz">
         <blitz-tab :reportService="reportService"></blitz-tab>
       </b-tab-item>
@@ -10,6 +10,7 @@
     </b-tabs>
   </div>
 </template>
+
 
 <script>
 import Vue from 'vue';
