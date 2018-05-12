@@ -6,16 +6,18 @@
       <template slot-scope="props">
         <b-table-column field="Actor" label="Hero" sortable>
           <div style="display: flex; align-items: center">
-          <figure class="image is-48x48" style="padding: 5px;">
-            <img style="border-radius: 50%;" :src="'dist/assets/hero-icons/' + getHero(props.row.Actor).toLowerCase() + '.png'" :alt="getHero(props.row.Actor)">
+          <figure class="image is-48x48" style="padding: 5px; display: flex; align-items: center;">
+            <img style="border-radius: 50%;"
+                 :src="'dist/assets/hero-icons/' + getHero(props.row.Actor).toLowerCase() + '.png'"
+                 :alt="getHero(props.row.Actor)">
           </figure>
-          {{ getHero(props.row.Actor) }}
+          <span>{{ getHero(props.row.Actor) }}</span>
           </div>
         </b-table-column>
 
         <b-table-column field="Talent" label="Talent">
           <div style="display: flex; align-items: center; justify-content: space-between;">
-            {{ getTalentName(props.row.Talent) }}
+            <span>{{ getTalentName(props.row.Talent) }}</span>
             <talent-image :entry="props.row" :size="48"></talent-image>
           </div>
         </b-table-column>
