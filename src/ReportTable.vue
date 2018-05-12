@@ -7,7 +7,7 @@
         <b-table-column field="Actor" label="Hero" sortable>
           <div style="display: flex; align-items: center">
           <figure class="image is-48x48" style="padding: 5px;">
-            <img style="border-radius: 50%;" :src="'dist/assets/hero-icons/' + getHero(props.row.Actor) + '.png'" :alt="getHero(props.row.Actor)">
+            <img style="border-radius: 50%;" :src="'dist/assets/hero-icons/' + getHero(props.row.Actor).toLowerCase() + '.png'" :alt="getHero(props.row.Actor)">
           </figure>
           {{ getHero(props.row.Actor) }}
           </div>
