@@ -15,10 +15,10 @@ const cleanPayloads = reduce.cleanPayloads(config.reduce);
 const saveFPayloads = file.saveFPayloads(config.file);
 
 function main() {
-  const firstOfMay = moment('2018-05-01');
+  const firstOfMay = moment('2018-05-16');
 
   const later = R.curry((base, hs) => base.clone().add(hs, 'hours'));
-  const hours = R.range(0, 24 * 9 + 12);
+  const hours = R.range(20, 24 * 1 + 13);
   const laterMoments = R.map(later(firstOfMay), hours);
 
   const futures = R.map(loadFTimestamped, laterMoments);
