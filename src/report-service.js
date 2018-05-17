@@ -2,7 +2,8 @@ const MODES = [ 'casual_aral', 'blitz_pvp_ranked' ];
 
 export default class ReportService {
   constructor() {
-    this.report = require('../data/98aae7f0/report.json');
+    this.report = require('../data/98aae7f0/report.json')
+      .filter((entry) => entry.Actor != undefined); // bad data from API downtime
 
     this.reports = {};
     this.totalPicks = {};
