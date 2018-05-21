@@ -1,5 +1,7 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
   entry: __dirname + '/src/index.js',
@@ -19,7 +21,9 @@ module.exports = {
     }, {
       test: /\.(css|scss)$/,
       use: [
-        'vue-style-loader',
+        process.env.NODE_ENV !== 'production'
+            ? 'vue-style-loader'
+            : MiniCssExtractPlugin.loader,
         'css-loader',
         'sass-loader',
       ],
@@ -34,5 +38,8 @@ module.exports = {
     new HtmlWebpackPlugin ({
       template: 'src/index.html',
     }),
+    new MiniCssExtractPlugin({
+    }),
+    new OptimizeCssAssetsPlugin(),
   ],
 };

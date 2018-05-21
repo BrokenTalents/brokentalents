@@ -23,7 +23,9 @@
     "babel-preset-env": "^1.6.1",
     "css-loader": "^0.28.11",
     "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
+    "optimize-css-assets-webpack-plugin": "^4.0.1",
     "sass-loader": "^7.0.1",
     "vue-loader": "^15.0.9",
     "vue-router": "^3.0.1",
@@ -36,7 +38,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "backend": "node backend/index.js",
     "dev": "webpack-dev-server --mode development --progress --hot --watch-poll",
-    "build": "webpack --mode production --progress"
+    "build": "NODE_ENV='production' webpack --mode production --progress"
   },
   "repository": {
     "type": "git",
