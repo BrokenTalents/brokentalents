@@ -1,6 +1,6 @@
 <template>
     <b-tabs v-model="tabIndex" expanded type="is-toggle">
-      <b-tab-item v-for="mode in modes" :label="getMode(mode)">
+      <b-tab-item v-for="mode in modes" :label="getMode(mode)" :key="mode">
         <mode-tab :reportService="reportService"></mode-tab>
       </b-tab-item>
     </b-tabs>
