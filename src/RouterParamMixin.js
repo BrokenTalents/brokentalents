@@ -2,7 +2,7 @@ export default {
   computed: {
     selectedActor: {
       get: function() {
-        return this.$route.query.actor || 'Kensei';
+        return this.$route.query.actor || '*Kensei*';
       },
       set: function(value) {
         const query = Object.assign({}, this.$route.query, { actor: value });
