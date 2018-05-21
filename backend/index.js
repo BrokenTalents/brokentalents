@@ -15,11 +15,13 @@ const cleanPayloads = reduce.cleanPayloads(config.reduce);
 const saveFPayloads = file.saveFPayloads(config.file);
 
 function main() {
-  const firstOfMay = moment('2018-05-16');
+  const start = moment('2018-05-16 16Z');
+  const end = moment().utc();
+  const duration = moment.duration(end.diff(start));
 
   const later = R.curry((base, hs) => base.clone().add(hs, 'hours'));
-  const hours = R.range(20, 24 * 5 + 15);
-  const laterMoments = R.map(later(firstOfMay), hours);
+  const hours = R.range(0, Math.floor(duration.asHours()));
+  const laterMoments = R.map(later(start), hours);
 
   const futures = R.map(loadFTimestamped, laterMoments);
   Future.parallel(1, futures)
