@@ -2,7 +2,8 @@
   <section>
     <b-table :data="report"
              :default-sort="['Count', 'desc']"
-             :default-sort-directon="'desc'">
+             :default-sort-directon="'desc'"
+             :paginated="true">
       <template slot-scope="props">
         <b-table-column field="Actor" label="Hero" sortable>
           <!-- desktop, table view -->
@@ -73,6 +74,7 @@ export default Vue.component('report-table', {
   data: function() {
     return {
       getTalentName: maps.getTalentName,
+      getTalentRarityIndex: maps.getTalentRarityIndex,
       getHero: maps.getHero,
     };
   },

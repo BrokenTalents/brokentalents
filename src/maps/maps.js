@@ -44,7 +44,7 @@ function getTalentRarity(talent) {
 }
 
 function getTalentRarityIndex(talent) {
-  return ['No Talent', 'Rare', 'Epic', 'Legendary'];
+  return ['None', 'Rare', 'Epic', 'Legendary'];
 }
 
 function getHero(actor) {
