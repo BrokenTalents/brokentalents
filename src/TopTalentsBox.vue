@@ -7,11 +7,15 @@
           <hero-image :actor="props.row.Actor" class="is-square"></hero-image>
         </b-table-column>
 
-        <b-table-column field="Talent" label="Talent">
+        <b-table-column field="Talent" label="Talent" :visible="hasTalents">
           <div style="display: flex; align-items: center; justify-content: space-between;">
             <span>{{ getTalentName(props.row.Talent) }}</span>
             <talent-image :entry="props.row" :size="48"></talent-image>
           </div>
+        </b-table-column>
+
+        <b-table-column field="Count" label="Pick Rate" :visible="!hasTalents" sortable numeric>
+          <span>{{ Math.round(100 * playersPerMatch * props.row.Count / totalPicks) }}%</span>
         </b-table-column>
 
         <b-table-column field="Winner" label="Win Rate" sortable numeric>
@@ -41,6 +45,15 @@ export default Vue.component('top-talents-box', {
   computed: {
     top10Talents: function() {
       return this.reportService.getTop10Picks(this.selectedMode);
+    },
+    hasTalents: function() {
+      return maps.hasTalents(this.selectedMode);
+    },
+    totalPicks: function() {
+      return this.reportService.getTotalPicks(this.selectedMode);
+    },
+    playersPerMatch: function() {
+      return maps.playersPerMatch(this.selectedMode);
     },
   },
   components: {

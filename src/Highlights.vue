@@ -14,7 +14,7 @@
                   title="Trending"
                   type="Total Pick Rate"
                   label="%"
-                  :value="(100 * 6 * stats.topPick.Count / stats.totalPicks).toFixed(2)"
+                  :value="(100 * playersPerMatch * stats.topPick.Count / stats.totalPicks).toFixed(2)"
                   :entry="stats.topPick" />
     </div>
 
@@ -77,6 +77,7 @@
 import Vue from 'vue';
 import TalentBox from './TalentBox.vue';
 import RouterParamMixin from './RouterParamMixin.js';
+import * as maps from './maps/maps.js';
 
 export default Vue.component('highlights', {
   props: [ 'reportService' ],
@@ -94,6 +95,9 @@ export default Vue.component('highlights', {
         topLegendaryWin: this.reportService.getTopLegendaryWins(this.selectedMode),
         lowestLevelAvg: this.reportService.getLowestLevelAvg(this.selectedMode),
       };
+    },
+    playersPerMatch: function() {
+      return maps.playersPerMatch(this.selectedMode);
     },
   },
   components: {

@@ -22,7 +22,7 @@
           </div>
         </b-table-column>
 
-        <b-table-column field="Talent" label="Talent">
+        <b-table-column field="Talent" label="Talent" :visible="hasTalents">
           <!-- desktop, table view -->
           <div class="is-hidden-touch">
             <div style="display: flex; align-items: center; justify-content: space-between;">
@@ -39,7 +39,7 @@
           </div>
         </b-table-column>
 
-        <b-table-column field="Level" label="Average Level" sortable numeric>
+        <b-table-column field="Level" label="Average Level" :visible="hasTalents" sortable numeric>
           <template v-if="!!props.row.Level">
             {{ props.row.Level.toFixed(2) }}
           </template>
@@ -49,15 +49,11 @@
         </b-table-column>
 
         <b-table-column field="Winner" label="Win Rate" sortable numeric>
-          <template v-if="!!props.row.Winner">
-            {{ (100 * props.row.Winner).toFixed(2) }}%
-          </template>
+          {{ (100 * props.row.Winner).toFixed(2) }}%
         </b-table-column>
 
         <b-table-column field="Count" label="Pick Rate" sortable numeric>
-          <template v-if="!!props.row.Count">
-            {{ (100 * 6 * props.row.Count / totalPicks).toFixed(2) }}%
-          </template>
+          {{ (100 * playersPerMatch * props.row.Count / totalPicks).toFixed(2) }}%
         </b-table-column>
       </template>
     </b-table>
@@ -86,6 +82,12 @@ export default Vue.component('report-table', {
     },
     totalPicks: function() {
       return this.reportService.getTotalPicks(this.selectedMode);
+    },
+    playersPerMatch: function() {
+      return maps.playersPerMatch(this.selectedMode);
+    },
+    hasTalents: function() {
+      return maps.hasTalents(this.selectedMode);
     },
   },
   components: {

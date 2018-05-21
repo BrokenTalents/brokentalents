@@ -1,11 +1,11 @@
 import * as maps from './maps/maps';
 
-const MODES = [ 'casual_aral', 'blitz_pvp_ranked' ];
+const MODES = [ 'casual_aral', 'blitz_pvp_ranked', 'ranked', '5v5_pvp_ranked' ];
 const POPULAR_THRESHOLD = 0.1;
 
 export default class ReportService {
   constructor() {
-    this.report = require('../data/98aae7f0/report.json')
+    this.report = require('../data/95fb1cdb/report.json')
       .filter((entry) => entry.Actor != undefined); // bad data from API downtime
 
     this.reports = new Map();
@@ -22,8 +22,9 @@ export default class ReportService {
     this.actors = [];
     this.modes = MODES;
 
-    for(let mode of MODES) {
+    for(let mode of this.modes) {
       const relevancy = (entry) => (entry.Count / this.totalPicks.get(mode)) * entry.Winner;
+      const playersPerMatch = maps.playersPerMatch(mode);
 
       this.reports.set(mode, this.report.filter((entry) => entry.Mode == mode));
       this.totalPicks.set(mode, this.report.map((entry) => entry.Count).reduce((agg, cur) => agg + cur, 0));
@@ -32,19 +33,19 @@ export default class ReportService {
         .slice(0, 10));
       this.topPicks.set(mode, this.reports.get(mode).sort((entry1, entry2) => entry2.Count - entry1.Count)[0]);
       this.topWins.set(mode, this.reports.get(mode)
-        .filter((entry) => 100 * 6 * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
+        .filter((entry) => 100 * playersPerMatch * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
         .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0]);
       this.topUnpopularWins.set(mode, this.reports.get(mode)
-        .filter((entry) => 100 * 6 * entry.Count / this.totalPicks.get(mode) <= POPULAR_THRESHOLD)
+        .filter((entry) => 100 * playersPerMatch * entry.Count / this.totalPicks.get(mode) <= POPULAR_THRESHOLD)
         .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0]);
       this.topRareWins.set(mode, this.reports.get(mode)
-        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Rare' && 100 * 6 * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
+        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Rare' && 100 * playersPerMatch * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
         .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0]);
       this.topEpicWins.set(mode, this.reports.get(mode)
-        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Epic' && 100 * 6 * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
+        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Epic' && 100 * playersPerMatch * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
         .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0]);
       this.topLegendaryWins.set(mode, this.reports.get(mode)
-        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * 6 * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
+        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * playersPerMatch * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
         .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0]);
       this.topLeveledUp.set(mode, this.reports.get(mode).sort((entry1, entry2) => {
         if (!entry1.Level) return 1;

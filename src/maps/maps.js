@@ -55,10 +55,20 @@ function getMode(mode) {
   return modes[mode];
 }
 
+function hasTalents(mode) {
+  return ['blitz_pvp_ranked', 'casual_aral'].includes(mode);
+}
+
+function playersPerMatch(mode) {
+  return mode.includes('5v5')? 10 : 6;
+}
+
 module.exports = {
   getTalentName,
   getTalentRarity,
   getTalentRarityIndex,
   getHero,
   getMode,
+  hasTalents,
+  playersPerMatch,
 };

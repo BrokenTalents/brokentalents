@@ -1,18 +1,18 @@
 <template>
   <div>
     <div class="columns is-multiline">
-      <div class="column">
+      <div class="column" v-if="hasTalents">
         <h2 class="title is-2">Highlights</h2>
         <highlights :reportService="reportService"></highlights>
       </div>
 
       <div class="column is-narrow">
-        <h2 class="title is-2">Top 10 Talents</h2>
+        <h2 class="title is-2">Top 10</h2>
         <top-talents-box :reportService="reportService"></top-talents-box>
       </div>
     </div>
 
-    <div class="columns is-multiline">
+    <div class="columns is-multiline" v-if="hasTalents">
       <h2 class="title is-2">Individual Hero Statistics</h2>
       <div class="column is-two-thirds">
         <hero-draft-grid :reportService="reportService"></hero-draft-grid>
@@ -36,9 +36,17 @@ import TopTalentsBox from './TopTalentsBox.vue';
 import HeroDraftGrid from './HeroDraftGrid.vue';
 import HeroTalentTable from './HeroTalentTable.vue';
 import ReportTable from './ReportTable.vue';
+import RouterParamMixin from './RouterParamMixin';
+import * as maps from './maps/maps.js';
 
 export default Vue.component('mode-tab', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
+  computed: {
+    hasTalents: function() {
+      return maps.hasTalents(this.selectedMode);
+    },
+  },
   components: {
     Highlights,
     TopTalentsBox,
