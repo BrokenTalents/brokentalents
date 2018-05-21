@@ -1,8 +1,7 @@
 <template>
 <div>
   <p class="title-box">{{ title }}</p>
-  <div class="columns">
-
+  <div class="columns is-mobile">
     <div class="column is-centered">
       <figure class="image is-64x64 hero-image-slot">
         <img class="hero-image" :src="'dist/assets/hero-icons/' + hero.toLowerCase() + '.png'" :alt="entry.Actor">
@@ -46,7 +45,6 @@
 
 .hero-name {
   font-size: 18px;
-  /* margin-bottom: 10px; */
 }
 
 .value {
@@ -62,19 +60,19 @@
 
 
 <script>
-import Vue from "vue";
-import TalentImage from "./TalentImage.vue";
-import * as maps from "./maps/maps";
+import Vue from 'vue';
+import TalentImage from './TalentImage.vue';
+import * as maps from './maps/maps';
 
-export default Vue.component("talent-box", {
-  props: ["title", "content", "entry", "type", "value", "label"],
-  data: function() {
-    return {
-      hero: maps.getHero(this.entry.Actor),
-    };
+export default Vue.component('talent-box', {
+  props: ['title', 'content', 'entry', 'type', 'value', 'label'],
+  computed: {
+    hero: function() {
+      return maps.getHero(this.entry.Actor);
+    },
   },
   components: {
-    TalentImage
+    TalentImage,
   }
 });
 </script>

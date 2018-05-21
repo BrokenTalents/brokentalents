@@ -1,11 +1,7 @@
 <template>
-    <b-tabs v-model="tabIndex" expanded  type="is-toggle" >
-      <b-tab-item label="Blitz">
-        <blitz-tab :reportService="reportService"></blitz-tab>
-      </b-tab-item>
-
-      <b-tab-item label="Battle Royale">
-        <battle-royale-tab :reportService="reportService"></battle-royale-tab>
+    <b-tabs v-model="tabIndex" expanded type="is-toggle">
+      <b-tab-item v-for="mode in modes" :label="getMode(mode)">
+        <mode-tab :reportService="reportService"></mode-tab>
       </b-tab-item>
     </b-tabs>
   </div>
@@ -14,29 +10,31 @@
 
 <script>
 import Vue from 'vue';
-import BlitzTab from './BlitzTab.vue';
-import BattleRoyaleTab from './BattleRoyaleTab.vue';
-import ReportService from './report-service.js';
+import ModeTab from './ModeTab.vue';
+import * as maps from './maps/maps';
 
 export default Vue.component('home', {
   props: [ 'reportService' ],
   data: function() {
     return {
+      modes: this.reportService.getModes(),
+      getMode: maps.getMode,
     };
   },
   computed: {
     tabIndex: {
       get: function() {
-        return this.$route.query.tab;
+        return this.reportService.getModes().indexOf(this.$route.query.mode);
       },
-      set: function(value) {
-        this.$router.push({ query: { tab: value }});
+      set: function(index) {
+        const mode = this.reportService.getModes()[index];
+        const query = Object.assign({}, this.$route.query, { mode: mode });
+        this.$router.push({ query });
       },
     },
   },
   components: {
-    BlitzTab,
-    BattleRoyaleTab,
+    ModeTab,
   },
 });
 </script>

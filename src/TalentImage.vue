@@ -20,19 +20,13 @@ import * as maps from './maps/maps';
 
 export default Vue.component('talent-image', {
   props: [ 'entry', 'size' ],
-  data: function() {
-    return {
-      hero: maps.getHero(this.entry.Actor),
-      rarity: maps.getTalentRarity(this.entry.Talent),
-    };
+  computed: {
+    hero: function() {
+      return maps.getHero(this.entry.Actor);
+    },
+    rarity: function() {
+      return maps.getTalentRarity(this.entry.Talent);
+    },
   },
-
-  watch: {
-    entry: function(newEntry, oldEntry) {
-      // This is needed so component will recalculate whenever there is a change on entry
-      this.hero = maps.getHero(this.entry.Actor);
-      this.rarity = maps.getTalentRarity(this.entry.Talent);
-    }
-  }
 });
 </script>

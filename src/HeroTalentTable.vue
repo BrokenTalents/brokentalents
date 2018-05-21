@@ -1,18 +1,13 @@
 <template>
   <div class="box">
-    <b-field label="Hero">
-      <b-input v-model="hero"></b-input>
-    </b-field>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
+      <h3 class="title is-3">{{ getHero(selectedActor) }}</h3>
+      <hero-image :actor="selectedActor" class="is-64x64"></hero-image>
+    </div>
 
     <b-table :data="heroReport"
-             :default-sort="['Count', 'desc']"
-             :default-sort-directon="'desc'"
              :mobile-cards="false">
       <template slot-scope="props">
-        <b-table-column field="Actor" label="Hero" sortable>
-          {{ getHero(props.row.Actor) }}
-        </b-table-column>
-
         <b-table-column field="Talent" label="Talent">
           <div style="display: flex; align-items: center; justify-content: space-between;">
             <span>{{ getTalentName(props.row.Talent) }}</span>
@@ -33,31 +28,42 @@
 <script>
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
+import HeroImage from './HeroImage.vue';
 import * as maps from './maps/maps';
 
-export default Vue.component('hero-search-box', {
+export default Vue.component('hero-talent-table', {
   props: [ 'reportService' ],
   data: function() {
     return {
-      hero: maps.getHero(this.reportService.getTopPick('casual_aral').Actor),
       totalPicks: this.reportService.getTotalPicks('casual_aral'),
       getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };
   },
   computed: {
+    selectedMode: {
+      get: function() {
+        return this.$route.query.mode;
+      },
+    },
     heroReport: function() {
-      return this.reportService.getReport('casual_aral')
-          .filter((entry) => maps.getHero(entry.Actor).includes(this.hero));
+      return this.reportService.getReport(this.selectedMode)
+          .filter((entry) => entry.Actor == this.selectedActor);
     },
     totalHeroPicks: function() {
       return this.heroReport
         .map((entry) => entry.Count)
         .reduce((agg, cur) => agg + cur, 0);
     },
+    selectedActor: {
+      get: function() {
+        return this.$route.query.actor;
+      },
+    },
   },
   components: {
     TalentImage,
+    HeroImage,
   },
 });
 </script>

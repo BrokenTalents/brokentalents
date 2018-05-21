@@ -1,5 +1,6 @@
 const rarities = require('./rarities.json');
 const names = require('./names.json');
+const modes = require('./modes.json');
 
 function getTalentName(talent) {
   if (talent == 'NoTalent') {
@@ -42,12 +43,22 @@ function getTalentRarity(talent) {
   }
 }
 
+function getTalentRarityIndex(talent) {
+  return ['No Talent', 'Rare', 'Epic', 'Legendary'];
+}
+
 function getHero(actor) {
   return actor.substring(1, actor.length - 1);
+}
+
+function getMode(mode) {
+  return modes[mode];
 }
 
 module.exports = {
   getTalentName,
   getTalentRarity,
+  getTalentRarityIndex,
   getHero,
+  getMode,
 };

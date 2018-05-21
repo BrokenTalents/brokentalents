@@ -5,20 +5,36 @@
              :default-sort-directon="'desc'">
       <template slot-scope="props">
         <b-table-column field="Actor" label="Hero" sortable>
-          <div style="display: flex; align-items: center">
-          <figure class="image is-48x48" style="padding: 5px; display: flex; align-items: center;">
-            <img style="border-radius: 50%;"
-                 :src="'dist/assets/hero-icons/' + getHero(props.row.Actor).toLowerCase() + '.png'"
-                 :alt="getHero(props.row.Actor)">
-          </figure>
-          <span>{{ getHero(props.row.Actor) }}</span>
+          <!-- desktop, table view -->
+          <div class="is-hidden-touch">
+            <div style="display: flex; align-items: center">
+              <hero-image round="true" :actor="props.row.Actor" class="is-48x48"></hero-image>
+              <span style="padding-left: 0.75em">{{ getHero(props.row.Actor) }}</span>
+            </div>
+          </div>
+          <!-- mobile, card view -->
+          <div class="is-hidden-desktop">
+            <div style="display: flex; align-items: center">
+              <span style="padding-right: 0.5em">{{ getHero(props.row.Actor) }}</span>
+              <hero-image round="true" :actor="props.row.Actor" class="is-48x48"></hero-image>
+            </div>
           </div>
         </b-table-column>
 
         <b-table-column field="Talent" label="Talent">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span>{{ getTalentName(props.row.Talent) }}</span>
-            <talent-image :entry="props.row" :size="48"></talent-image>
+          <!-- desktop, table view -->
+          <div class="is-hidden-touch">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span>{{ getTalentName(props.row.Talent) }}</span>
+              <talent-image :entry="props.row" :size="48"></talent-image>
+            </div>
+          </div>
+          <!-- mobile, card view -->
+          <div class="is-hidden-desktop">
+            <div style="display: flex; align-items: center">
+              <span style="padding-right: 0.5em">{{ getTalentName(props.row.Talent) }}</span>
+              <talent-image :entry="props.row" :size="48"></talent-image>
+            </div>
           </div>
         </b-table-column>
 
@@ -49,17 +65,32 @@
 
 <script>
 import Vue from 'vue';
+import HeroImage from './HeroImage.vue';
 import * as maps from './maps/maps';
 
 export default Vue.component('report-table', {
-  props: [ 'report', 'totalPicks' ],
+  props: [ 'reportService' ],
   data: function() {
     return {
       getTalentName: maps.getTalentName,
-      getHero: maps.getHero
+      getHero: maps.getHero,
     };
   },
   computed: {
+    selectedMode: {
+      get: function() {
+        return this.$route.query.mode;
+      },
+    },
+    report: function() {
+      return this.reportService.getReport(this.selectedMode);
+    },
+    totalPicks: function() {
+      return this.reportService.getTotalPicks(this.selectedMode);
+    },
+  },
+  components: {
+    HeroImage,
   },
 });
 </script>
