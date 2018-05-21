@@ -1,4 +1,7 @@
+import * as maps from './maps/maps';
+
 const MODES = [ 'casual_aral', 'blitz_pvp_ranked' ];
+const POPULAR_THRESHOLD = 0.1;
 
 export default class ReportService {
   constructor() {
@@ -10,8 +13,12 @@ export default class ReportService {
     this.top10Relevancy = {};
     this.topPicks = {};
     this.topWins = {};
+    this.topRareWins = {};
+    this.topEpicWins = {};
+    this.topLegendaryWins = {};
     this.topLeveledUp = {};
     this.topLeveledDown = {};
+    this.topUnpopularWins = {};
     this.actors = [];
     this.modes = MODES;
 
@@ -23,7 +30,19 @@ export default class ReportService {
       this.top10Relevancy[mode] = this.reports[mode].sort((entry1, entry2) => relevancy(entry2) - relevancy(entry1)).slice(0, 10);
       this.topPicks[mode] = this.reports[mode].sort((entry1, entry2) => entry2.Count - entry1.Count)[0];
       this.topWins[mode] = this.reports[mode]
-        .filter((entry) => 100 * 6 * entry.Count / this.totalPicks[mode] > 0.05)
+        .filter((entry) => 100 * 6 * entry.Count / this.totalPicks[mode] > POPULAR_THRESHOLD)
+        .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
+      this.topUnpopularWins[mode] = this.reports[mode]
+        .filter((entry) => 100 * 6 * entry.Count / this.totalPicks[mode] <= POPULAR_THRESHOLD)
+        .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
+      this.topRareWins[mode] = this.reports[mode]
+        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Rare' && 100 * 6 * entry.Count / this.totalPicks[mode] > POPULAR_THRESHOLD)
+        .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
+      this.topEpicWins[mode] = this.reports[mode]
+        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Epic' && 100 * 6 * entry.Count / this.totalPicks[mode] > POPULAR_THRESHOLD)
+        .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
+      this.topLegendaryWins[mode] = this.reports[mode]
+        .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * 6 * entry.Count / this.totalPicks[mode] > POPULAR_THRESHOLD)
         .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0];
       this.topLeveledUp[mode] = this.reports[mode].sort((entry1, entry2) => {
         if (!entry1.Level) return 1;
@@ -69,6 +88,26 @@ export default class ReportService {
 
   getTopWin(mode) {
     return this.topWins[mode];
+  }
+
+  getTopUnpopularWin(mode) {
+    return this.topUnpopularWins[mode];
+  }
+
+  getTopRareWins(mode) {
+    return this.topRareWins[mode];
+  }
+
+  getTopEpicWins(mode) {
+    return this.topEpicWins[mode];
+  }
+
+  getTopLegendaryWins(mode) {
+    return this.topLegendaryWins[mode];
+  }
+
+  getBestUnpopular(mode) {
+    return this.topUnpopular[mode];
   }
 
   getActors() {

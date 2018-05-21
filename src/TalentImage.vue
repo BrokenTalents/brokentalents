@@ -1,5 +1,5 @@
 <template>
-  <div v-if="rarity !== 'unknown' && rarity"
+  <div v-if="rarity != 'None'"
        class="talent-image"
        :style="`background-image: url('dist/assets/talent-icons-small/${hero}/${hero}_${rarity}.png'); width: ${size}px; height: ${size}px`"
        :alt="`${hero} ${rarity}`"

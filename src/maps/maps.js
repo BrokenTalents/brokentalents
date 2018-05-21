@@ -26,7 +26,7 @@ function getTalentName(talent) {
 }
 
 function getTalentRarity(talent) {
-  if (talent == 'No Talent') {
+  if (talent == 'NoTalent') {
     return 'None';
   }
 
