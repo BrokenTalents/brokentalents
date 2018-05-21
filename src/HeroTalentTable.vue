@@ -16,9 +16,10 @@
         </b-table-column>
 
         <b-table-column field="Winner" label="Win Rate" sortable numeric>
-          <template v-if="!!props.row.Winner">
-            {{ Math.round(100 * props.row.Winner) }}%
-          </template>
+          <span class="tag is-warning mdi mdi-gauge-empty mdi-18px"
+                title="Very low pick rate"
+                v-if="100 * playersPerMatch * props.row.Count / totalPicks < 0.5"></span>
+          {{ Math.round(100 * props.row.Winner) }}%
         </b-table-column>
       </template>
     </b-table>
@@ -53,6 +54,9 @@ export default Vue.component('hero-talent-table', {
       return this.heroReport
         .map((entry) => entry.Count)
         .reduce((agg, cur) => agg + cur, 0);
+    },
+    playersPerMatch: function() {
+      return maps.playersPerMatch(this.selectedMode);
     },
   },
   components: {
