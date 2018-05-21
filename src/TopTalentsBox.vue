@@ -1,8 +1,6 @@
 <template>
   <div class="box">
     <b-table :data="top10Talents"
-             :default-sort="['Count', 'desc']"
-             :default-sort-directon="'desc'"
              :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="Actor" label="Hero">
@@ -17,9 +15,7 @@
         </b-table-column>
 
         <b-table-column field="Winner" label="Win Rate" sortable numeric>
-          <template v-if="!!props.row.Winner">
-            {{ Math.round(100 * props.row.Winner) }}%
-          </template>
+          <span>{{ Math.round(100 * props.row.Winner) }}%</span>
         </b-table-column>
       </template>
     </b-table>
@@ -33,7 +29,7 @@ import HeroImage from './HeroImage.vue';
 import RouterParamMixin from './RouterParamMixin.js';
 import * as maps from './maps/maps';
 
-export default Vue.component('hero-search-box', {
+export default Vue.component('top-talents-box', {
   props: [ 'reportService' ],
   mixins: [ RouterParamMixin ],
   data: function() {
