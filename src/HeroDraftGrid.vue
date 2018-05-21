@@ -35,7 +35,7 @@ export default Vue.component('hero-draft-grid', {
   mixins: [ RouterParamMixin ],
   data: function() {
     return {
-      actors: this.reportService.getActors(),
+      actors: this.reportService.getActors().sort(),
       getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };
