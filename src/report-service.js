@@ -23,11 +23,13 @@ export default class ReportService {
     this.modes = MODES;
 
     for(let mode of MODES) {
-      const relevancy = (entry) => (entry.Count / this.totalPicks[mode]) * (entry.Winner / entry.Count);
+      const relevancy = (entry) => (entry.Count / this.totalPicks.get(mode)) * entry.Winner;
 
       this.reports.set(mode, this.report.filter((entry) => entry.Mode == mode));
       this.totalPicks.set(mode, this.report.map((entry) => entry.Count).reduce((agg, cur) => agg + cur, 0));
-      this.top10Relevancy.set(mode, this.reports.get(mode).sort((entry1, entry2) => relevancy(entry2) - relevancy(entry1)).slice(0, 10));
+      this.top10Relevancy.set(mode, this.reports.get(mode)
+        .sort((entry1, entry2) => relevancy(entry2) - relevancy(entry1))
+        .slice(0, 10));
       this.topPicks.set(mode, this.reports.get(mode).sort((entry1, entry2) => entry2.Count - entry1.Count)[0]);
       this.topWins.set(mode, this.reports.get(mode)
         .filter((entry) => 100 * 6 * entry.Count / this.totalPicks.get(mode) > POPULAR_THRESHOLD)
