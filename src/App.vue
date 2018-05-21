@@ -14,6 +14,25 @@
     </section>
 
     <router-view></router-view>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            Last update: 2018-05-21, with {{ totalMatches }} matches total.
+            Join the <a href="https://discord.gg/txTchJY">Discord Server</a> if you have questions.
+          </p>
+          <p>
+            <strong>BrokenTalentsFun</strong> by shutterfly (<a href="https://schneefux.xyz">@schneefux</a>).
+            <a href="https://github.com/BrokenTalents/brokentalents.github.io">Source Code</a>.
+            Built with the <a href="http://developer.vainglorygame.com">Vainglory API</a>.
+            Images by <a href="https://vainglorygame.com">Super Evil Mega Corp</a>.
+          </p>
+          <p>
+          </p>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -29,3 +48,15 @@
   background-size: cover;
 }
 </style>
+
+<script>
+export default {
+  name: 'App',
+  props: [ 'reportService' ],
+  data: function() {
+    return {
+      totalMatches: Math.floor(this.reportService.getTotalMatches()/100)*100,
+    };
+  },
+};
+</script>

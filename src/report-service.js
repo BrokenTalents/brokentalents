@@ -19,6 +19,7 @@ export default class ReportService {
     this.topLeveledUp = new Map();
     this.topLeveledDown = new Map();
     this.topUnpopularWins = new Map();
+    this.totalMatches = 0;
     this.actors = [];
     this.modes = MODES;
 
@@ -28,6 +29,7 @@ export default class ReportService {
 
       this.reports.set(mode, this.report.filter((entry) => entry.Mode == mode));
       this.totalPicks.set(mode, this.report.map((entry) => entry.Count).reduce((agg, cur) => agg + cur, 0));
+      this.totalMatches += this.totalPicks.get(mode) / maps.playersPerMatch(mode);
       this.top10Relevancy.set(mode, this.reports.get(mode)
         .sort((entry1, entry2) => relevancy(entry2) - relevancy(entry1))
         .slice(0, 10));
@@ -119,5 +121,9 @@ export default class ReportService {
 
   getModes() {
     return this.modes;
+  }
+
+  getTotalMatches() {
+    return this.totalMatches;
   }
 }
