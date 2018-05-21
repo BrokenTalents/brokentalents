@@ -29,22 +29,21 @@
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
 import HeroImage from './HeroImage.vue';
+import RouterParamMixin from './RouterParamMixin.js';
 import * as maps from './maps/maps';
 
 export default Vue.component('hero-talent-table', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   data: function() {
     return {
-      totalPicks: this.reportService.getTotalPicks('casual_aral'),
       getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };
   },
   computed: {
-    selectedMode: {
-      get: function() {
-        return this.$route.query.mode;
-      },
+    totalPicks: function() {
+      return this.reportService.getTotalPicks(this.selectedMode);
     },
     heroReport: function() {
       return this.reportService.getReport(this.selectedMode)
@@ -54,11 +53,6 @@ export default Vue.component('hero-talent-table', {
       return this.heroReport
         .map((entry) => entry.Count)
         .reduce((agg, cur) => agg + cur, 0);
-    },
-    selectedActor: {
-      get: function() {
-        return this.$route.query.actor;
-      },
     },
   },
   components: {

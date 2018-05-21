@@ -76,15 +76,12 @@
 <script>
 import Vue from 'vue';
 import TalentBox from './TalentBox.vue';
+import RouterParamMixin from './RouterParamMixin.js';
 
 export default Vue.component('highlights', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   computed: {
-    selectedMode: {
-      get: function() {
-        return this.$route.query.mode;
-      },
-    },
     stats: function() {
       return {
         topWin: this.reportService.getTopWin(this.selectedMode),

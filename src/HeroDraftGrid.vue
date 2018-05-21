@@ -27,27 +27,18 @@
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
 import HeroImage from './HeroImage.vue';
+import RouterParamMixin from './RouterParamMixin.js';
 import * as maps from './maps/maps';
 
 export default Vue.component('hero-draft-grid', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   data: function() {
     return {
       actors: this.reportService.getActors(),
       getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };
-  },
-  computed: {
-    selectedActor: {
-      get: function() {
-        return this.$route.query.actor;
-      },
-      set: function(value) {
-        const query = Object.assign({}, this.$route.query, { actor: value });
-        this.$router.push({ query });
-      },
-    },
   },
   components: {
     TalentImage,

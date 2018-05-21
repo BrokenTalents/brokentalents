@@ -67,10 +67,12 @@
 <script>
 import Vue from 'vue';
 import HeroImage from './HeroImage.vue';
+import RouterParamMixin from './RouterParamMixin.js';
 import * as maps from './maps/maps';
 
 export default Vue.component('report-table', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   data: function() {
     return {
       getTalentName: maps.getTalentName,
@@ -79,11 +81,6 @@ export default Vue.component('report-table', {
     };
   },
   computed: {
-    selectedMode: {
-      get: function() {
-        return this.$route.query.mode;
-      },
-    },
     report: function() {
       return this.reportService.getReport(this.selectedMode);
     },

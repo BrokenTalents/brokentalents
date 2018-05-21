@@ -30,10 +30,12 @@
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
 import HeroImage from './HeroImage.vue';
+import RouterParamMixin from './RouterParamMixin.js';
 import * as maps from './maps/maps';
 
 export default Vue.component('hero-search-box', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   data: function() {
     return {
       getHero: maps.getHero,
@@ -41,16 +43,8 @@ export default Vue.component('hero-search-box', {
     };
   },
   computed: {
-    selectedMode: {
-      get: function() {
-        return this.$route.query.mode;
-      },
-    },
     top10Talents: function() {
       return this.reportService.getTop10Picks(this.selectedMode);
-    },
-    totalPicks: function() {
-      return this.reportService.getTotalPicks(this.selectedMode);
     },
   },
   components: {

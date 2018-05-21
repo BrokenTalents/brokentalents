@@ -11,10 +11,12 @@
 <script>
 import Vue from 'vue';
 import ModeTab from './ModeTab.vue';
+import RouterParamMixin from './RouterParamMixin.js';
 import * as maps from './maps/maps';
 
 export default Vue.component('home', {
   props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   data: function() {
     return {
       modes: this.reportService.getModes(),
@@ -24,12 +26,11 @@ export default Vue.component('home', {
   computed: {
     tabIndex: {
       get: function() {
-        return this.reportService.getModes().indexOf(this.$route.query.mode);
+        return this.reportService.getModes().indexOf(this.selectedMode);
       },
       set: function(index) {
         const mode = this.reportService.getModes()[index];
-        const query = Object.assign({}, this.$route.query, { mode: mode });
-        this.$router.push({ query });
+        this.selectedMode = mode;
       },
     },
   },
