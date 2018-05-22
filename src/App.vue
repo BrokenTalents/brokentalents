@@ -26,7 +26,7 @@
             <strong>BrokenTalentsFun</strong> by shutterfly (<a href="https://schneefux.xyz">@schneefux</a>).
             <a href="https://github.com/BrokenTalents/brokentalents.github.io">Source Code</a>.
             Built with the <a href="http://developer.vainglorygame.com">Vainglory API</a>.
-            Images by <a href="https://vainglorygame.com">Super Evil Mega Corp</a>.
+            Images by <a href="https://vainglorygame.com">Super Evil Mega Corp</a>, Gwen Icon by Bleeko.
           </p>
           <p>
           </p>
