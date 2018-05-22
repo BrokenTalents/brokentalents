@@ -19,7 +19,7 @@
       <div class="container">
         <div class="content has-text-centered">
           <p>
-            Last update: 2018-05-21, with {{ totalMatches }} matches total.
+            Last update: 2018-05-22, with {{ totalMatches }} matches total.
             Join the <a href="https://discord.gg/txTchJY">Discord Server</a> if you have questions.
           </p>
           <p>
