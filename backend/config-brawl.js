@@ -19,7 +19,7 @@ module.exports = {
     /* available: eu, na, sg, cn, sa, ea */
     regions: ['sg', 'eu', 'na'],
     /* available: casual, 5v5_pvp_casual, ranked, 5v5_pvp_ranked, blitz_pvp_ranked, casual_aral */
-    modes: ['blitz_pvp_ranked', 'casual_aral', 'ranked', '5v5_pvp_ranked'],
+    modes: ['blitz_pvp_ranked', 'casual_aral'],
     /* available: 2, 3, 4, 5 */
     matchesPerRequest: 5,
     /* How many equidistant requests to create
@@ -56,6 +56,5 @@ module.exports = {
   file: {
     pattern: (moment) => `./data/${hashSettings(module.exports)}/${moment.toISOString()}.json`,
     reportPattern: () => `./data/${hashSettings(module.exports)}/report.json`,
-    metadataPattern: () => `./data/${hashSettings(module.exports)}/metadata.json`,
   },
 };

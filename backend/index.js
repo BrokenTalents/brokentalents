@@ -3,6 +3,7 @@
 const R  = require('ramda'),
   Future = require('fluture'),
   moment = require('moment'),
+  fsPath = require('fs-path'),
   reduce = require('./reduce'),
   source = require('./source'),
   file   = require('./file'),
@@ -23,11 +24,20 @@ function main() {
   const hours = R.range(0, Math.floor(duration.asHours()));
   const laterMoments = R.map(later(start), hours);
 
+  const metadata = {
+    lastUpdate: moment().toISOString(),
+    config,
+  };
+  const saveMetadata = (path, data) =>
+    Future.node((cb) => fsPath.writeFile(path, JSON.stringify(data), cb))
+          .map(() => data);
+
   const futures = R.map(loadFTimestamped, laterMoments);
   Future.parallel(1, futures)
     .map(R.compose(deriveStatistics, aggregatePayloads, cleanPayloads, R.unnest))
     .chain(saveFPayloads(config.file.reportPattern()))
-    .fork(console.error, (d) => console.log(JSON.stringify(d, null, 2)));
+    .chain((data) => saveMetadata(config.file.metadataPattern(), metadata))
+    .fork(console.error, (d) => {});
 }
 
 main();

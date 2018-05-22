@@ -1,12 +1,12 @@
 import * as maps from './maps/maps';
 
-const MODES = [ 'casual_aral', 'blitz_pvp_ranked', 'ranked', '5v5_pvp_ranked' ];
 const POPULAR_THRESHOLD = 1.0; // percent
 
 export default class ReportService {
   constructor() {
     this.report = require('../data/95fb1cdb/report.json')
       .filter((entry) => entry.Actor != undefined); // bad data from API downtime
+    this.metadata = require('../data/95fb1cdb/metadata.json');
 
     this.reports = new Map();
     this.totalPicks = new Map();
@@ -21,7 +21,7 @@ export default class ReportService {
     this.topUnpopularWins = new Map();
     this.totalMatches = 0;
     this.actors = [];
-    this.modes = MODES;
+    this.modes = this.metadata.config.api.modes;
 
     for(let mode of this.modes) {
       const relevancy = (entry) => (entry.Count / this.totalPicks.get(mode)) * entry.Winner;
@@ -125,5 +125,9 @@ export default class ReportService {
 
   getTotalMatches() {
     return this.totalMatches;
+  }
+
+  getLastUpdate() {
+    return this.metadata.lastUpdate;
   }
 }

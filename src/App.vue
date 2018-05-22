@@ -19,7 +19,7 @@
       <div class="container">
         <div class="content has-text-centered">
           <p>
-            Last update: 2018-05-22, with {{ totalMatches }} matches total.
+            Last update: {{ lastUpdate }}, with {{ totalMatches }} matches total.
             Join the <a href="https://discord.gg/txTchJY">Discord Server</a> if you have questions.
           </p>
           <p>
@@ -56,6 +56,7 @@ export default {
   data: function() {
     return {
       totalMatches: Math.floor(this.reportService.getTotalMatches()/100)*100,
+      lastUpdate: this.reportService.getLastUpdate(),
     };
   },
 };
