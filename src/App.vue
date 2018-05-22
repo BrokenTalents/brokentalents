@@ -7,7 +7,7 @@
             Broken Talents
           </h1>
           <h2 class="subtitle has-text-white">
-            Tilting Brawlers since May 2017
+            Tilting Brawlers since Update 2.5
           </h2>
         </div>
       </div>
