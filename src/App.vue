@@ -20,13 +20,15 @@
         <div class="content has-text-centered">
           <p>
             Last update: {{ lastUpdate }}, with {{ totalMatches }} matches total.
-            Join the <a href="https://discord.gg/txTchJY">Discord Server</a> if you have questions.
           </p>
           <p>
-            <strong>BrokenTalentsFun</strong> by shutterfly (<a href="https://schneefux.xyz">@schneefux</a>).
+            <strong>BrokenTalentsFun</strong>, the Vainglory Talents and Hero win rate statistics site, by shutterfly (<a href="https://schneefux.xyz">@schneefux</a>).
+            <br />
             <a href="https://github.com/BrokenTalents/brokentalents.github.io">Source Code</a>.
             Built with the <a href="http://developer.vainglorygame.com">Vainglory API</a>.
             Images by <a href="https://vainglorygame.com">Super Evil Mega Corp</a>, Gwen Icon by Bleeko.
+            <br />
+            Join the <a href="https://discord.gg/txTchJY">Discord Server</a> if you have questions.
           </p>
           <p>
           </p>

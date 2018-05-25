@@ -9,7 +9,7 @@
         <br />
         Talents are special boosts for Vainglory's Brawl modes that upgrade and change hero abilities in a variety of different ways.
         <br />
-        Information on this site has been gathered from a small number of real Vainglory matches.
+        The pick and win rates on this site have been gathered from real Vainglory matches.
         The data can be imprecise and can be contrary to your personal experience.
       </p>
       <p>
