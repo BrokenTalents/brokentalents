@@ -1,7 +1,6 @@
 <template>
   <div class="box">
     <div style="display: flex; align-items: center; justify-content: space-between;">
-      <h3 class="title is-3">{{ getHero(selectedActor) }}</h3>
       <hero-image :actor="selectedActor" class="is-64x64"></hero-image>
     </div>
 
@@ -30,24 +29,23 @@
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
 import HeroImage from './HeroImage.vue';
-import RouterParamMixin from './RouterParamMixin.js';
+import RouterParamMixin from './RouterParamMixin';
+import ReportService from './ReportService';
 import * as maps from './maps/maps';
 
 export default Vue.component('hero-talent-table', {
-  props: [ 'reportService' ],
   mixins: [ RouterParamMixin ],
   data: function() {
     return {
-      getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };
   },
   computed: {
     totalPicks: function() {
-      return this.reportService.getTotalPicks(this.selectedMode);
+      return ReportService.getTotalPicks(this.selectedMode);
     },
     heroReport: function() {
-      return this.reportService.getReport(this.selectedMode)
+      return ReportService.getReport(this.selectedMode)
           .filter((entry) => entry.Actor == this.selectedActor);
     },
     totalHeroPicks: function() {

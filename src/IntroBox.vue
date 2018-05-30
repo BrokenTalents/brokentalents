@@ -3,7 +3,7 @@
     <button class="delete" @click="hideIntro = true"></button>
     <div class="content">
       <h3>Hi There!</h3>
-        <img style="float: right" class="image is-64x64" src="/dist/assets/gwenbarf.png"></img>
+      <img style="float: right" class="image is-64x64" src="/dist/assets/gwenbarf.png"></img>
       <p>
         Broken Talents Fun will help you find the best Talents for the Vainglory mobile MOBA game.
         <br />

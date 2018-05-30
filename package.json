@@ -15,7 +15,9 @@
     "ramda": "^0.25.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-google-adsense": "^1.2.0",
+    "vue-script2": "^2.0.2"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

@@ -13,7 +13,17 @@
       </div>
     </section>
 
-    <router-view></router-view>
+    <div class="tabs is-fullwidth">
+      <ul>
+        <li v-for="mode in modes" :key="mode" :class="(mode == selectedMode ? 'is-active' : '')">
+          <a @click="selectedMode = mode">
+            <span>{{ getMode(mode) }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <mode-tab class="tab"></mode-tab>
 
     <footer class="footer">
       <div class="container">
@@ -49,17 +59,32 @@
     ), url('/dist/assets/TalentGrab.jpg') center center;
   background-size: cover;
 }
+
+.tab {
+  padding-left: 1em;
+  padding-right: 1em;
+}
 </style>
 
 <script>
+import ModeTab from './ModeTab.vue';
+import RouterParamMixin from './RouterParamMixin';
+import ReportService from './ReportService';
+import * as maps from './maps/maps';
+
 export default {
   name: 'App',
-  props: [ 'reportService' ],
+  mixins: [ RouterParamMixin ],
   data: function() {
     return {
-      totalMatches: Math.floor(this.reportService.getTotalMatches()/100)*100,
-      lastUpdate: this.reportService.getLastUpdate(),
+      totalMatches: Math.floor(ReportService.getTotalMatches()/100)*100,
+      lastUpdate: ReportService.getLastUpdate(),
+      modes: ReportService.getModes(),
+      getMode: maps.getMode,
     };
+  },
+  components: {
+    ModeTab,
   },
 };
 </script>

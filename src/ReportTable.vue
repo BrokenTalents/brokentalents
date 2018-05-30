@@ -63,11 +63,11 @@
 <script>
 import Vue from 'vue';
 import HeroImage from './HeroImage.vue';
-import RouterParamMixin from './RouterParamMixin.js';
+import RouterParamMixin from './RouterParamMixin';
+import ReportService from './ReportService';
 import * as maps from './maps/maps';
 
 export default Vue.component('report-table', {
-  props: [ 'reportService' ],
   mixins: [ RouterParamMixin ],
   data: function() {
     return {
@@ -78,10 +78,10 @@ export default Vue.component('report-table', {
   },
   computed: {
     report: function() {
-      return this.reportService.getReport(this.selectedMode);
+      return ReportService.getReport(this.selectedMode);
     },
     totalPicks: function() {
-      return this.reportService.getTotalPicks(this.selectedMode);
+      return ReportService.getTotalPicks(this.selectedMode);
     },
     playersPerMatch: function() {
       return maps.playersPerMatch(this.selectedMode);

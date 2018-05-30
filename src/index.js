@@ -2,32 +2,26 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
+import Ads from 'vue-google-adsense';
 
 import App from './App.vue';
-import Home from './Home.vue';
-
-import ReportService from './report-service.js';
+import ModeTab from './ModeTab.vue';
 
 Vue.use(VueRouter);
 Vue.use(Buefy);
-
-const reportService = new ReportService();
+Vue.use(require('vue-script2'))
+Vue.use(Ads.Adsense)
 
 const router = new VueRouter({
   routes: [ {
     path: '/',
     name: 'home',
-    component: Home,
-    props: (route) => ({
-      reportService,
-    }),
+    component: ModeTab,
   } ]
 });
 
 new Vue({
   router,
   el: '#app',
-  render: h => h(App, {
-    props: { reportService },
-  }),
+  render: h => h(App),
 });

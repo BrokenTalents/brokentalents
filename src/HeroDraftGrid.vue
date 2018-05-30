@@ -27,15 +27,15 @@
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
 import HeroImage from './HeroImage.vue';
-import RouterParamMixin from './RouterParamMixin.js';
+import RouterParamMixin from './RouterParamMixin';
+import ReportService from './ReportService';
 import * as maps from './maps/maps';
 
 export default Vue.component('hero-draft-grid', {
-  props: [ 'reportService' ],
   mixins: [ RouterParamMixin ],
   data: function() {
     return {
-      actors: this.reportService.getActors().sort(),
+      actors: ReportService.getActors().sort(),
       getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };

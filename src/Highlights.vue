@@ -76,24 +76,24 @@
 <script>
 import Vue from 'vue';
 import TalentBox from './TalentBox.vue';
-import RouterParamMixin from './RouterParamMixin.js';
+import RouterParamMixin from './RouterParamMixin';
+import ReportService from './ReportService';
 import * as maps from './maps/maps.js';
 
 export default Vue.component('highlights', {
-  props: [ 'reportService' ],
   mixins: [ RouterParamMixin ],
   computed: {
     stats: function() {
       return {
-        topWin: this.reportService.getTopWin(this.selectedMode),
-        topUnpopularWin: this.reportService.getTopUnpopularWin(this.selectedMode),
-        topPick: this.reportService.getTopPick(this.selectedMode),
-        totalPicks: this.reportService.getTotalPicks(this.selectedMode),
-        highestLevelAvg: this.reportService.getHighestLevelAvg(this.selectedMode),
-        topRareWin: this.reportService.getTopRareWins(this.selectedMode),
-        topEpicWin: this.reportService.getTopEpicWins(this.selectedMode),
-        topLegendaryWin: this.reportService.getTopLegendaryWins(this.selectedMode),
-        lowestLevelAvg: this.reportService.getLowestLevelAvg(this.selectedMode),
+        topWin: ReportService.getTopWin(this.selectedMode),
+        topUnpopularWin: ReportService.getTopUnpopularWin(this.selectedMode),
+        topPick: ReportService.getTopPick(this.selectedMode),
+        totalPicks: ReportService.getTotalPicks(this.selectedMode),
+        highestLevelAvg: ReportService.getHighestLevelAvg(this.selectedMode),
+        topRareWin: ReportService.getTopRareWins(this.selectedMode),
+        topEpicWin: ReportService.getTopEpicWins(this.selectedMode),
+        topLegendaryWin: ReportService.getTopLegendaryWins(this.selectedMode),
+        lowestLevelAvg: ReportService.getLowestLevelAvg(this.selectedMode),
       };
     },
     playersPerMatch: function() {

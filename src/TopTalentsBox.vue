@@ -30,11 +30,11 @@
 import Vue from 'vue';
 import TalentImage from './TalentImage.vue';
 import HeroImage from './HeroImage.vue';
-import RouterParamMixin from './RouterParamMixin.js';
+import RouterParamMixin from './RouterParamMixin';
+import ReportService from './ReportService';
 import * as maps from './maps/maps';
 
 export default Vue.component('top-talents-box', {
-  props: [ 'reportService' ],
   mixins: [ RouterParamMixin ],
   data: function() {
     return {
@@ -44,13 +44,13 @@ export default Vue.component('top-talents-box', {
   },
   computed: {
     top10Talents: function() {
-      return this.reportService.getTop10Picks(this.selectedMode);
+      return ReportService.getTop10Picks(this.selectedMode);
     },
     hasTalents: function() {
       return maps.hasTalents(this.selectedMode);
     },
     totalPicks: function() {
-      return this.reportService.getTotalPicks(this.selectedMode);
+      return ReportService.getTotalPicks(this.selectedMode);
     },
     playersPerMatch: function() {
       return maps.playersPerMatch(this.selectedMode);
