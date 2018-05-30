@@ -14,14 +14,10 @@
       </div>
     </div>
 
-    <div class="notification" v-show="adActive[0]">
-      <button class="delete" @click="adActive[0] = false"></button>
-      <h3 class="title is-3">Ad</h3>
-      <Adsense
-        data-ad-client="ca-pub-6856963757796636"
-        data-ad-slot="4801023518">
-      </Adsense>
-    </div>
+    <Adsense
+      data-ad-client="ca-pub-6856963757796636"
+      data-ad-slot="3898218968">
+    </Adsense>
 
     <div class="columns is-multiline" v-if="hasTalents">
       <div class="column is-two-thirds">
@@ -33,15 +29,6 @@
         <h2 class="title is-2">{{ getHero(selectedActor) }} Statistics</h2>
         <hero-talent-table></hero-talent-table>
       </div>
-    </div>
-
-    <div class="notification" v-show="adActive[1]">
-      <button class="delete" @click="adActive[1] = false"></button>
-      <h3 class="title is-3">Ad</h3>
-      <Adsense
-        data-ad-client="ca-pub-6856963757796636"
-        data-ad-slot="3898218968">
-      </Adsense>
     </div>
 
     <div>
@@ -67,10 +54,6 @@ export default Vue.component('mode-tab', {
   data: function() {
     return {
       getHero: maps.getHero,
-      adActive: {
-        0: true,
-        1: true,
-      },
     };
   },
   computed: {
