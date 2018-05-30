@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <Adsense
+    <Adsense class="adsense"
       data-ad-client="ca-pub-6856963757796636"
       data-ad-slot="3898218968">
     </Adsense>
@@ -31,7 +31,7 @@
       </div>
     </div>
 
-    <Adsense
+    <Adsense class="adsense"
       data-ad-client="ca-pub-6856963757796636"
       data-ad-slot="4801023518">
     </Adsense>
@@ -42,6 +42,13 @@
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.adsense {
+  margin-top: 2em;
+  margin-bottom: 2.5em;
+}
+</style>
 
 <script>
 import Vue from 'vue';
