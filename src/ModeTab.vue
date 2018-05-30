@@ -31,6 +31,11 @@
       </div>
     </div>
 
+    <Adsense
+      data-ad-client="ca-pub-6856963757796636"
+      data-ad-slot="4801023518">
+    </Adsense>
+
     <div>
       <h2 class="title is-2">All Hero Statistics</h2>
       <report-table></report-table>
