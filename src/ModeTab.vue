@@ -2,6 +2,8 @@
   <div>
     <intro-box></intro-box>
 
+    <install-notification></install-notification>
+
     <div class="columns is-multiline">
       <div class="column" v-if="hasTalents">
         <h2 class="title is-2">Highlights</h2>
@@ -57,8 +59,9 @@ import TopTalentsBox from './TopTalentsBox.vue';
 import HeroDraftGrid from './HeroDraftGrid.vue';
 import HeroTalentTable from './HeroTalentTable.vue';
 import ReportTable from './ReportTable.vue';
-import RouterParamMixin from './RouterParamMixin';
 import IntroBox from './IntroBox.vue';
+import InstallNotification from './InstallNotification.vue';
+import RouterParamMixin from './RouterParamMixin';
 import * as maps from './maps/maps.js';
 
 export default Vue.component('mode-tab', {
@@ -80,6 +83,7 @@ export default Vue.component('mode-tab', {
     HeroTalentTable,
     ReportTable,
     IntroBox,
+    InstallNotification,
   },
 });
 </script>

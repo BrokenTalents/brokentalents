@@ -1,6 +1,6 @@
 <template>
   <figure class="image">
-    <img :src="`/dist/assets/hero-icons/${hero.toLowerCase()}.png`"
+    <img :src="`/dist/assets/hero-icons/${hero.toLowerCase()}.jpg`"
          :style="round? 'border-radius: 50%' : ''"
          :alt="hero"
          :title="hero">

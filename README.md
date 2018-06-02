@@ -9,6 +9,8 @@
 
 `npm run backend`
 
+`parallel -eta convert {} {.}.jpg ::: dist/assets/*/*/*.png`
+
 ## Building the frontend
 
  * production: `npm run build`
