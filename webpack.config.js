@@ -47,6 +47,7 @@ module.exports = {
     new SWPrecacheWebpackPlugin({
       cacheId: 'brokentalents-1',
       filepath: './service-worker.js',
+      staticFileGlobs: ['index.html', 'dist/**/*'],
       minify: true,
     }),
   ] : []),
