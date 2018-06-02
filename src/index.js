@@ -24,4 +24,9 @@ new Vue({
   router,
   el: '#app',
   render: h => h(App),
+  mounted: function() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  },
 });

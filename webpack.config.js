@@ -1,12 +1,14 @@
+const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
 module.exports = {
-  entry: __dirname + '/src/index.js',
+  entry: path.resolve(__dirname, 'src/index.js'),
   output: {
-    path: __dirname + '/dist/',
+    path: path.resolve(__dirname, 'dist/'),
     filename: 'build.js',
   },
   module: {
@@ -41,5 +43,11 @@ module.exports = {
     new MiniCssExtractPlugin({
     }),
     new OptimizeCssAssetsPlugin(),
-  ],
+  ].concat(process.env.NODE_ENV == 'production' ?  [
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'brokentalents-1',
+      filepath: '../service-worker.js',
+      minify: true,
+    }),
+  ] : []),
 };

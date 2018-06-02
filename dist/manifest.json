@@ -1,0 +1,11 @@
+{
+  "name": "Broken Talents Fun",
+  "short_name": "Broken Talents Fun",
+  "orientation": "portrait",
+  "display": "standalone",
+  "start_url": "/",
+  "description": "Broken Talents Fun",
+  "background_color": "#01579b",
+  "theme_color": "#01579b",
+  "theme-color": "#01579b"
+}
