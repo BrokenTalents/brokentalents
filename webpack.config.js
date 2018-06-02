@@ -1,7 +1,9 @@
 const path = require('path');
+const glob = require('glob-all');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 
@@ -49,6 +51,16 @@ module.exports = {
       filepath: './service-worker.js',
       staticFileGlobs: ['index.html', 'dist/**/*'],
       minify: true,
+    }),
+    new PurgecssPlugin({
+      paths: glob.sync([
+        './src/*.html',
+        './src/*.js',
+        './src/*.vue',
+        './src/**/*.vue',
+        './node_modules/buefy/src/components/table/*',
+        './node_modules/buefy/src/components/pagination/*',
+      ])
     }),
   ] : []),
 };

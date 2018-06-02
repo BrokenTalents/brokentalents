@@ -7,6 +7,9 @@ import Ads from 'vue-google-adsense';
 import App from './App.vue';
 import ModeTab from './ModeTab.vue';
 
+// Buefy's Bulma components CSS will be purged in production!
+// Add exceptions to webpack.config.js PurgecssPlugin
+
 Vue.use(VueRouter);
 Vue.use(Buefy);
 Vue.use(require('vue-script2'))
