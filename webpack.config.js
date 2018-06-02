@@ -46,7 +46,7 @@ module.exports = {
   ].concat(process.env.NODE_ENV == 'production' ?  [
     new SWPrecacheWebpackPlugin({
       cacheId: 'brokentalents-1',
-      filepath: '../service-worker.js',
+      filepath: './service-worker.js',
       minify: true,
     }),
   ] : []),
