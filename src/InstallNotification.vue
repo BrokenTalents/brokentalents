@@ -29,6 +29,7 @@ export default Vue.component('install-notification', {
   },
   methods: {
     promptInstall: function(p) {
+      p.preventDefault();
       this.deferredPrompt = p;
     },
   },
