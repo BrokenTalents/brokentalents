@@ -29,7 +29,11 @@ new Vue({
   render: h => h(App),
   mounted: function() {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js');
+      navigator.serviceWorker.register('/service-worker.js').then((registration) => {
+        if (typeof registration.update == 'function') {
+          registration.update();
+        }
+      });
     }
   },
 });
