@@ -5,12 +5,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const workboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'src/index.js'),
   output: {
     path: path.resolve(__dirname, 'dist/'),
+    publicPath: '/dist/',
     filename: 'build.js',
   },
   module: {
@@ -46,16 +47,14 @@ module.exports = {
     }),
     new OptimizeCssAssetsPlugin(),
   ].concat(process.env.NODE_ENV == 'production' ?  [
-    new SWPrecacheWebpackPlugin({
-      cacheId: 'brokentalents-1',
-      filepath: './service-worker.js',
-      staticFileGlobs: [
-          'index.html',
-          'dist/**/*',
-          'data/*/report.json',
-          'data/*/metadata.json',
-      ],
-      minify: true,
+    new workboxPlugin.GenerateSW({
+      cacheId: 'brokentalents',
+      swDest: '../service-worker.js',
+      importWorkboxFrom: 'local',
+      clientsClaim: true,
+      skipWaiting: true,
+      globDirectory: '.',
+      globPatterns: ['dist/**/*.{jpg,png}'],
     }),
     new PurgecssPlugin({
       paths: glob.sync([
