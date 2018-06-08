@@ -29,15 +29,25 @@ export default Vue.component('install-notification', {
   },
   methods: {
     promptInstall: function(p) {
+      this.$ga.event('PWA', 'available');
       p.preventDefault();
       this.deferredPrompt = p;
+      this.deferredPrompt.userChoice.then((choiceResult) => {
+        this.$ga.event('PWA', 'popup', choiceResult.outcome);
+        this.deferredPrompt = null;
+      });
+    },
+    installed: function(e) {
+      this.$ga.event('PWA', 'installed');
     },
   },
   created: function() {
     window.addEventListener('beforeinstallprompt', this.promptInstall);
+    window.addEventListener('appinstalled', this.installed);
   },
   destroyed: function() {
     window.removeEventListener('beforeinstallprompt', this.promptInstall);
+    window.removeEventListener('appinstalled', this.installed);
   },
 });
 </script>

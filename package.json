@@ -17,6 +17,7 @@
     "request-promise": "^4.2.2",
     "sw-precache-webpack-plugin-loader": "^1.0.2",
     "vue": "^2.5.16",
+    "vue-analytics": "^5.12.2",
     "vue-google-adsense": "^1.2.0",
     "vue-script2": "^2.0.2"
   },

@@ -13,7 +13,7 @@
         The data can be imprecise and can be contrary to your personal experience.
       </p>
       <p>
-        This site shares visitor data with Google Analytics and Google AdSense which store cookies. If you do not want that, you can <a href="https://tools.google.com/dlpage/gaoptout">use the Google Analytics opt out service</a> and <a href="http://www.youronlinechoices.com/">opt out of targeted advertisements</a>.
+        This site shares visitor data with Google Analytics and Google AdSense which store cookies. If you do not want that, you can <a @click="this.$ga.disable()">opt out of Google Analytics</a> and <a href="http://www.youronlinechoices.com/">opt out of targeted advertisements</a>.
       </p>
     </div>
   </div>
