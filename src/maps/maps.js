@@ -43,6 +43,16 @@ function getTalentRarity(talent) {
   }
 }
 
+function getScaledLevel(entry) {
+  switch (getTalentRarity(entry.Talent)) {
+    case 'unknown':
+    case 'None': return -1;
+    case 'Rare': return entry.Level / 20;
+    case 'Epic': return entry.Level / 10;
+    case 'Legendary': return entry.Level / 5;
+  }
+};
+
 function getTalentRarityIndex(talent) {
   return ['None', 'Rare', 'Epic', 'Legendary'];
 }
@@ -67,6 +77,7 @@ module.exports = {
   getTalentName,
   getTalentRarity,
   getTalentRarityIndex,
+  getScaledLevel,
   getHero,
   getMode,
   hasTalents,

@@ -47,17 +47,12 @@ for(let mode of modes) {
   topLegendaryWins.set(mode, reports.get(mode)
     .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * playersPerMatch * entry.Count / totalPicks.get(mode))
     .sort((entry1, entry2) => entry2.Winner - entry1.Winner)[0]);
-  topLeveledUp.set(mode, reports.get(mode).sort((entry1, entry2) => {
-    if (!entry1.Level) return 1;
-    if (!entry2.Level) return -1;
-    return entry1.Level < entry2.Level ? 1 : -1;
-  })[0]);
-  topLeveledDown.set(mode, reports.get(mode).sort((entry1, entry2) => {
-    if (!entry1.Level) return 1;
-    if (!entry2.Level) return -1;
-
-    return entry1.Level < entry2.Level ? -1 : 1;
-  })[0]);
+  topLeveledUp.set(mode, reports.get(mode)
+    .filter((entry) => maps.getTalentRarity(entry.Talent) != 'None')
+    .sort((entry1, entry2) => maps.getScaledLevel(entry2) - maps.getScaledLevel(entry1))[0]);
+  topLeveledDown.set(mode, reports.get(mode)
+    .filter((entry) => maps.getTalentRarity(entry.Talent) != 'None')
+    .sort((entry1, entry2) => maps.getScaledLevel(entry1) - maps.getScaledLevel(entry2))[0]);
 
   if (actors.length == 0) {
     actors = [...new Set(reports.get(mode).map((entry) => entry.Actor))];
