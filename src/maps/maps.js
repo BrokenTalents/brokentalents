@@ -2,6 +2,8 @@ const rarities = require('./rarities.json');
 const names = require('./names.json');
 const modes = require('./modes.json');
 
+const RARITIES = ['None', 'Rare', 'Epic', 'Legendary'];
+
 function getTalentName(talent) {
   if (talent == 'NoTalent') {
     return 'No Talent';
@@ -53,10 +55,6 @@ function getScaledLevel(entry) {
   }
 };
 
-function getTalentRarityIndex(talent) {
-  return ['None', 'Rare', 'Epic', 'Legendary'];
-}
-
 function getHero(actor) {
   return actor.substring(1, actor.length - 1);
 }
@@ -74,9 +72,9 @@ function playersPerMatch(mode) {
 }
 
 module.exports = {
+  RARITIES,
   getTalentName,
   getTalentRarity,
-  getTalentRarityIndex,
   getScaledLevel,
   getHero,
   getMode,

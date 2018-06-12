@@ -33,6 +33,12 @@
       </div>
     </div>
 
+    <div class="box">
+      <h2 class="title is-2">Hero Balance Overview</h2>
+      <h3 class="subtitle is-hidden-desktop">Best viewed on a large screen</h3>
+      <win-pick-scatter></win-pick-scatter>
+    </div>
+
     <Adsense class="adsense"
       data-ad-client="ca-pub-6856963757796636"
       data-ad-slot="4801023518">
@@ -61,6 +67,7 @@ import HeroTalentTable from './HeroTalentTable.vue';
 import ReportTable from './ReportTable.vue';
 import IntroBox from './IntroBox.vue';
 import InstallNotification from './InstallNotification.vue';
+import WinPickScatter from './WinPickScatter.vue';
 import RouterParamMixin from './RouterParamMixin';
 import * as maps from './maps/maps.js';
 
@@ -83,6 +90,7 @@ export default Vue.component('mode-tab', {
     HeroTalentTable,
     ReportTable,
     IntroBox,
+    WinPickScatter,
     InstallNotification,
   },
 });

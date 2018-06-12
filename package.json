@@ -12,6 +12,7 @@
     "fs-path": "^0.0.24",
     "moment": "^2.22.1",
     "node-fetch": "^2.1.2",
+    "plotly.js": "^1.28.3",
     "ramda": "^0.25.0",
     "request": "^2.85.0",
     "request-promise": "^4.2.2",
