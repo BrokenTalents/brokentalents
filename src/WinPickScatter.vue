@@ -29,7 +29,7 @@ export default Vue.component('win-pick-scatter', {
   methods: {
     refresh() {
       const data = ReportService.getReport(this.selectedMode);
-      const total = ReportService.getTotalMatches(this.selectedMode);
+      const total = ReportService.getTotalPicks(this.selectedMode);
       const dataWithRarity = (rarity) => data.filter((entry) => maps.getTalentRarity(entry.Talent) == rarity);
 
       const traces = maps.RARITIES.map((rarity) => ({
