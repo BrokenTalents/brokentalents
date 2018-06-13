@@ -35,7 +35,7 @@ export default Vue.component('win-pick-scatter', {
       const traces = maps.RARITIES.map((rarity) => ({
         x: dataWithRarity(rarity).map((entry) => entry.Winner),
         y: dataWithRarity(rarity).map((entry) => maps.playersPerMatch(this.selectedMode) * entry.Count / total),
-        text: dataWithRarity(rarity).map((entry) => `${maps.getHero(entry.Actor)} ${rarity}`),
+        text: dataWithRarity(rarity).map((entry) => maps.getHero(entry.Actor)),
         name: rarity,
         mode: 'markers',
         type: 'scatter',
