@@ -2,7 +2,7 @@ export default {
   computed: {
     selectedActor: {
       get: function() {
-        return this.$route.query.actor || '*Kensei*';
+        return this.$route.query.actor || '*Kinetic*';
       },
       set: function(value) {
         this.$ga.event('Hero', 'update', value);
