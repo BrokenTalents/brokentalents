@@ -1,9 +1,9 @@
 import * as maps from './maps/maps';
-import * as metadata from '../data/95fb1cdb/metadata.json';
+import * as metadata from '../data/78f0edf0/metadata.json';
 
 const POPULAR_THRESHOLD = 1.0; // percent
 
-const report = require('../data/95fb1cdb/report.json')
+const report = require('../data/78f0edf0/report.json')
   .filter((entry) => entry.Actor != undefined); // bad data from API downtime
 
 const reports = new Map();

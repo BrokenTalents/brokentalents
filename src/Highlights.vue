@@ -1,6 +1,6 @@
 <template>
   <div class="columns is-multiline is-mobile">
-    <div class="column">
+    <div class="column" v-if="!!stats.topWin">
       <talent-box class="is-dark notification"
                   title="Overpowered"
                   type="Win Rate"
@@ -9,7 +9,7 @@
                   :entry="stats.topWin" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.topPick">
       <talent-box class="is-dark notification"
                   title="Trending"
                   type="Total Pick Rate"
@@ -18,7 +18,7 @@
                   :entry="stats.topPick" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.topUnpopularWin">
       <talent-box class="is-dark notification"
                   title="Hidden Gem"
                   type="Win Rate"
@@ -27,7 +27,7 @@
                   :entry="stats.topUnpopularWin" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.highestLevelAvg">
       <talent-box class="is-dark notification"
                   title="Highest Level"
                   type="Average Level"
@@ -35,7 +35,7 @@
                   :entry="stats.highestLevelAvg" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.lowestLevelAvg">
       <talent-box class="is-dark notification"
                   title="Lowest Level"
                   type="Average Level"
@@ -43,7 +43,7 @@
                   :entry="stats.lowestLevelAvg" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.topRareWin">
       <talent-box class="is-dark notification"
                   title="Best Rare"
                   type="Win Rate"
@@ -52,7 +52,7 @@
                   :entry="stats.topRareWin" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.topEpicWin">
       <talent-box class="is-dark notification"
                   title="Best Epic"
                   type="Win Rate"
@@ -61,7 +61,7 @@
                   :entry="stats.topEpicWin" />
     </div>
 
-    <div class="column">
+    <div class="column" v-if="!!stats.topLegendaryWin">
       <talent-box class="is-dark notification"
                   title="Best Legendary"
                   type="Win Rate"
