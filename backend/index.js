@@ -16,9 +16,13 @@ const cleanPayloads = reduce.cleanPayloads(config.reduce);
 const saveFPayloads = file.saveFPayloads(config.file);
 
 function main() {
-  const start = moment('2018-05-16 16Z');
+  const start = moment(config.api.startDate);
   const end = moment().utc();
   const duration = moment.duration(end.diff(start));
+  if (start.isAfter(end)) {
+    console.error(`Start date '${start}' is in the future, exiting.`);
+    return;
+  }
 
   const later = R.curry((base, hs) => base.clone().add(hs, 'hours'));
   const hours = R.range(0, Math.floor(duration.asHours()));

@@ -7,6 +7,7 @@ function paramsForHourSample(config) {
   const requestArgsForRegionStartEnd = R.curry((region, start, end) => [
     `/shards/${region}/matches`, {
       'sort': '-createdAt',
+      'filter[patchVersion]': config.patchVersion,
       'filter[gameMode]': R.join(',', config.modes),
       'filter[createdAt-start]': start.toISOString(),
       'filter[createdAt-end]': end.toISOString(),

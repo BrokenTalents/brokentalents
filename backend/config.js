@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const sha256 = (x) => crypto.createHash('sha256').update(x, 'utf8').digest('hex');
 
 const hashSettings = (config) => sha256(
+  config.api.patchVersion +
   config.api.regions +
   config.api.modes +
   config.api.requestsPerInterval +
@@ -16,6 +17,10 @@ module.exports = {
   api: {
     baseUrl: 'https://api.dc01.gamelockerapp.com',
     timeout: 3,
+    /* available: 3.1, 3.2, 3.3, … */
+    patchVersion: '3.4',
+    /* moment js parsable string */
+    startDate: '2018-06-13 16Z',
     /* available: eu, na, sg, cn, sa, ea */
     regions: ['sg', 'eu', 'na'],
     /* available: casual, 5v5_pvp_casual, ranked, 5v5_pvp_ranked, blitz_pvp_ranked, casual_aral */
