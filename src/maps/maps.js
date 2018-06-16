@@ -28,7 +28,7 @@ function getTalentName(talent) {
 }
 
 function getTalentRarity(talent) {
-  if (talent == 'NoTalent') {
+  if (!talent || talent == 'NoTalent') {
     return 'None';
   }
 
@@ -45,14 +45,21 @@ function getTalentRarity(talent) {
   }
 }
 
-function getScaledLevel(entry) {
+function getMaxLevel(entry) {
   switch (getTalentRarity(entry.Talent)) {
     case 'unknown':
     case 'None': return -1;
-    case 'Rare': return entry.Level / 20;
-    case 'Epic': return entry.Level / 10;
-    case 'Legendary': return entry.Level / 5;
+    case 'Rare': return 20;
+    case 'Epic': return 10;
+    case 'Legendary': return 5;
   }
+};
+
+function getScaledLevel(entry) {
+  if (['unknown', 'None'].includes(getTalentRarity(entry.Talent))) {
+    return 0;
+  }
+  return entry.Level / getMaxLevel(entry);
 };
 
 function getHero(actor) {
@@ -75,6 +82,7 @@ module.exports = {
   RARITIES,
   getTalentName,
   getTalentRarity,
+  getMaxLevel,
   getScaledLevel,
   getHero,
   getMode,

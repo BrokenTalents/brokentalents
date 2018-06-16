@@ -8,18 +8,27 @@
              :mobile-cards="false">
       <template slot-scope="props">
         <b-table-column field="Talent" label="Talent">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <span>{{ getTalentName(props.row.Talent) }}</span>
-            <talent-image :entry="props.row" :size="48"></talent-image>
-          </div>
+          <talent-image :entry="props.row" :size="48"></talent-image>
         </b-table-column>
 
-        <b-table-column field="Winner" label="Win Rate" sortable numeric>
-          <span class="tag is-warning mdi mdi-gauge-empty mdi-18px"
-                title="Very low pick rate"
-                v-if="100 * playersPerMatch * props.row.Count / totalPicks < 0.5"></span>
-          {{ Math.round(100 * props.row.Winner) }}%
+        <b-table-column field="Winner" label="Level 1 Win Rate" sortable numeric>
+          <template v-if="isNaN(props.row.TalentWinrateBase)">
+            {{ (100 * props.row.Winner).toFixed(2) }}%
+          </template>
+          <template v-else>
+            {{ (100 * props.row.TalentWinrateBase).toFixed(2) }}%
+          </template>
         </b-table-column>
+
+        <b-table-column field="TalentWinrateScaling" label="Win Rate Advantage" sortable numeric>
+          <template v-if="isNaN(props.row.TalentWinrateScaling) || props.row.SampleTooSmall">
+            <span class="mdi mdi-gauge-empty mdi-18px" title="Not enough data"></span>
+          </template>
+          <template v-else>
+            {{ (props.row.TalentWinrateScaling > 0? '+' : '') + (100 * props.row.TalentWinrateScaling / getLevelBuckets()).toFixed(2) }}% <small>for {{ getLevelsPerBucket(props.row) + (getLevelsPerBucket(props.row) > 1? ' Levels' : ' Level') }}</small>
+          </template>
+        </b-table-column>
+
       </template>
     </b-table>
   </div>
@@ -38,6 +47,8 @@ export default Vue.component('hero-talent-table', {
   data: function() {
     return {
       getTalentName: maps.getTalentName,
+      getLevelBuckets: ReportService.getLevelBuckets,
+      getLevelsPerBucket: (entry) => maps.getMaxLevel(entry) / this.getLevelBuckets(),
     };
   },
   computed: {

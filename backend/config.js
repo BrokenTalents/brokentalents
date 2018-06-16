@@ -1,4 +1,5 @@
 #!/usr/bin/node
+const maps = require('../src/maps/maps');
 
 const crypto = require('crypto');
 
@@ -10,7 +11,9 @@ const hashSettings = (config) => sha256(
   config.api.modes +
   config.api.requestsPerInterval +
   config.api.interval +
-  config.api.intervalUnit
+  config.api.intervalUnit +
+  config.etl +
+  config.reduce
 ).substring(0, 8);
 
 module.exports = {
@@ -53,14 +56,25 @@ module.exports = {
     match: [ ['Mode', ['attributes', 'gameMode']] ],
   },
   reduce: {
+    /* attributes to be calculated from other attributes */
+    derived: [
+      (entry) => {
+        if(entry.LevelBucket == undefined)
+          entry.LevelBucket = Math.max(-1, Math.floor(maps.getScaledLevel(entry) * module.exports.self.levelBuckets));
+        return entry;
+      },
+    ],
     /* criteria or 'filters' */
-    group: ['Actor', 'Talent', 'Mode'],
+    group: ['Actor', 'Talent', 'Mode', 'LevelBucket'],
     /* stats */
-    sum: ['Level', 'Winner'],
+    sum: ['Winner'],
   },
   file: {
     pattern: (moment) => `./data/${hashSettings(module.exports)}/${moment.toISOString()}.json`,
     reportPattern: () => `./data/${hashSettings(module.exports)}/report.json`,
     metadataPattern: () => `./data/${hashSettings(module.exports)}/metadata.json`,
+  },
+  self: {
+    levelBuckets: 5,
   },
 };

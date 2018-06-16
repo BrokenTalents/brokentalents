@@ -1,7 +1,7 @@
 <template>
   <section>
     <b-table :data="report"
-             :default-sort="['Count', 'desc']"
+             :default-sort="['TotalPicks', 'desc']"
              :default-sort-directon="'desc'"
              :paginated="true">
       <template slot-scope="props">
@@ -39,21 +39,26 @@
           </div>
         </b-table-column>
 
-        <b-table-column field="Level" label="Average Level" :visible="hasTalents" sortable numeric>
-          <template v-if="!!props.row.Level">
-            {{ props.row.Level.toFixed(2) }}
+        <b-table-column field="Winner" label="Level 1 Win Rate" sortable numeric>
+          <template v-if="isNaN(props.row.TalentWinrateBase) || props.row.SampleTooSmall">
+            {{ (100 * props.row.Winner).toFixed(2) }}%
           </template>
-          <template v-if="!props.row.Level">
-            0
+          <template v-else>
+            {{ (100 * props.row.TalentWinrateBase).toFixed(2) }}%
           </template>
         </b-table-column>
 
-        <b-table-column field="Winner" label="Win Rate" sortable numeric>
-          {{ (100 * props.row.Winner).toFixed(2) }}%
+        <b-table-column field="TalentWinrateScaling" label="Win Rate Advantage" sortable numeric>
+          <template v-if="isNaN(props.row.TalentWinrateScaling) || props.row.SampleTooSmall">
+            <span class="mdi mdi-gauge-empty mdi-18px" title="Not enough data"></span>
+          </template>
+          <template v-else>
+            {{ (props.row.TalentWinrateScaling > 0? '+' : '') + (100 * props.row.TalentWinrateScaling / getLevelBuckets()).toFixed(2) }}% <small>for {{ getLevelsPerBucket(props.row) + (getLevelsPerBucket(props.row) > 1? ' Levels' : ' Level') }}</small>
+          </template>
         </b-table-column>
 
-        <b-table-column field="Count" label="Pick Rate" sortable numeric>
-          {{ (100 * playersPerMatch * props.row.Count / totalPicks).toFixed(2) }}%
+        <b-table-column field="TotalPicks" label="Pick Rate" sortable numeric>
+          {{ (100 * playersPerMatch * props.row.TotalPicks / totalPicks).toFixed(2) }}%
         </b-table-column>
       </template>
     </b-table>
@@ -74,6 +79,8 @@ export default Vue.component('report-table', {
       getTalentName: maps.getTalentName,
       getTalentRarityIndex: maps.getTalentRarityIndex,
       getHero: maps.getHero,
+      getLevelBuckets: ReportService.getLevelBuckets,
+      getLevelsPerBucket: (entry) => maps.getMaxLevel(entry) / this.getLevelBuckets(),
     };
   },
   computed: {

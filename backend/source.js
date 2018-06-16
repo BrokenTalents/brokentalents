@@ -17,6 +17,7 @@ function doFetchProcessStoreHour(config) {
 
   const requestsForHour = (timestamp) => R.map(R.apply(loadFApi), paramsForHourSample(timestamp));
 
+  //return () => Future.of([]); // DEBUG
   return (timestamp) => Future.parallel(1, requestsForHour(timestamp))
     .map(R.compose(aggregatePayloads, R.unnest))
     .chainRej((err) => { console.error(err); return Future.of({}); }) // fail silently

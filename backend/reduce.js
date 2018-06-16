@@ -15,8 +15,10 @@ function aggregatePayloads(config) {
   const sorter  = R.props(config.group);
   const grouper = utils.eqPropses(config.group);
 
-  // sum & count
   const aggregator = R.pipe(
+    // calculate inferred attributes
+    R.map(R.apply(R.pipe, config.derived)),
+    // sum & count
     R.sortBy(sorter),
     R.groupWith(grouper),
     R.map(

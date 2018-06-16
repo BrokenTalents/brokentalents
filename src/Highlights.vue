@@ -5,7 +5,7 @@
                   title="Overpowered"
                   type="Win Rate"
                   label="%"
-                  :value="Math.round(100 * stats.topWin.Winner)"
+                  :value="Math.round(100 * stats.topWin.TotalWinner)"
                   :entry="stats.topWin" />
     </div>
 
@@ -18,29 +18,31 @@
                   :entry="stats.topPick" />
     </div>
 
+    <div class="column" v-if="!!stats.topLowLevel">
+      <talent-box class="is-dark notification"
+                  title="Beginner"
+                  type="Level 1 Win Rate"
+                  label="%"
+                  :value="Math.round(100 * stats.topLowLevel.Winner)"
+                  :entry="stats.topLowLevel" />
+    </div>
+
+    <div class="column" v-if="!!stats.topScaling">
+      <talent-box class="is-dark notification"
+                  title="Spender"
+                  type="Win Rate per Level"
+                  label="%"
+                  :value="'+' + Math.round(100 * stats.topScaling.TalentWinrateLevelScaling)"
+                  :entry="stats.topScaling" />
+    </div>
+
     <div class="column" v-if="!!stats.topUnpopularWin">
       <talent-box class="is-dark notification"
                   title="Hidden Gem"
                   type="Win Rate"
                   label="%"
-                  :value="Math.round(100 * stats.topUnpopularWin.Winner)"
+                  :value="Math.round(100 * stats.topUnpopularWin.TotalWinner)"
                   :entry="stats.topUnpopularWin" />
-    </div>
-
-    <div class="column" v-if="!!stats.highestLevelAvg">
-      <talent-box class="is-dark notification"
-                  title="Highest Level"
-                  type="Average Level"
-                  :value="stats.highestLevelAvg.Level.toFixed(2)"
-                  :entry="stats.highestLevelAvg" />
-    </div>
-
-    <div class="column" v-if="!!stats.lowestLevelAvg">
-      <talent-box class="is-dark notification"
-                  title="Lowest Level"
-                  type="Average Level"
-                  :value="stats.lowestLevelAvg.Level.toFixed(2)"
-                  :entry="stats.lowestLevelAvg" />
     </div>
 
     <div class="column" v-if="!!stats.topRareWin">
@@ -48,7 +50,7 @@
                   title="Best Rare"
                   type="Win Rate"
                   label="%"
-                  :value="Math.round(100 * stats.topRareWin.Winner)"
+                  :value="Math.round(100 * stats.topRareWin.TotalWinner)"
                   :entry="stats.topRareWin" />
     </div>
 
@@ -57,7 +59,7 @@
                   title="Best Epic"
                   type="Win Rate"
                   label="%"
-                  :value="Math.round(100 * stats.topEpicWin.Winner)"
+                  :value="Math.round(100 * stats.topEpicWin.TotalWinner)"
                   :entry="stats.topEpicWin" />
     </div>
 
@@ -66,7 +68,7 @@
                   title="Best Legendary"
                   type="Win Rate"
                   label="%"
-                  :value="Math.round(100 * stats.topLegendaryWin.Winner)"
+                  :value="Math.round(100 * stats.topLegendaryWin.TotalWinner)"
                   :entry="stats.topLegendaryWin" />
     </div>
 
@@ -89,11 +91,11 @@ export default Vue.component('highlights', {
         topUnpopularWin: ReportService.getTopUnpopularWin(this.selectedMode),
         topPick: ReportService.getTopPick(this.selectedMode),
         totalPicks: ReportService.getTotalPicks(this.selectedMode),
-        highestLevelAvg: ReportService.getHighestLevelAvg(this.selectedMode),
         topRareWin: ReportService.getTopRareWins(this.selectedMode),
         topEpicWin: ReportService.getTopEpicWins(this.selectedMode),
         topLegendaryWin: ReportService.getTopLegendaryWins(this.selectedMode),
-        lowestLevelAvg: ReportService.getLowestLevelAvg(this.selectedMode),
+        topLowLevel: ReportService.getTopLowLevel(this.selectedMode),
+        topScaling: ReportService.getTopScaling(this.selectedMode),
       };
     },
     playersPerMatch: function() {

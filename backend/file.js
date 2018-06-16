@@ -15,7 +15,7 @@ function loadFPayloads(config) {
 function saveFPayloads(config) {
   return R.curry((file, data) =>
     Future.node((cb) => fsPath.writeFile(file, JSON.stringify(data), cb))
-    .map(() => data)
+    .map(() => { console.log(`stored ${file}`); return data; })
   );
 }
 
