@@ -1,5 +1,13 @@
+import * as maps from './maps/maps';
+
 export default {
   computed: {
+    playersPerMatch: function() {
+      return maps.playersPerMatch(this.selectedMode);
+    },
+    hasTalents: function() {
+      return maps.hasTalents(this.selectedMode);
+    },
     selectedActor: {
       get: function() {
         return this.$route.query.actor || '*Kinetic*';

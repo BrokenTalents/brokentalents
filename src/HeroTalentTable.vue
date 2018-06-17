@@ -6,29 +6,33 @@
 
     <b-table :data="heroReport"
              :mobile-cards="false">
+      <template slot-scope="props" slot="header">
+        <b-tooltip :active="!!props.column.meta" :label="props.column.meta || ''" position="is-bottom" dashed>
+          {{ props.column.label }}
+        </b-tooltip>
+      </template>
+
       <template slot-scope="props">
         <b-table-column field="Talent" label="Talent">
           <talent-image :entry="props.row" :size="48"></talent-image>
         </b-table-column>
 
-        <b-table-column field="Winner" label="Level 1 Win Rate" sortable numeric>
+        <b-table-column field="TalentWinrateBase" label="Level 1 Win Rate" meta="Estimated." sortable numeric>
           <template v-if="isNaN(props.row.TalentWinrateBase)">
-            {{ (100 * props.row.Winner).toFixed(2) }}%
+            {{ (100 * props.row.Winner).toFixed(2) }}% <!-- No Talent -->
           </template>
           <template v-else>
             {{ (100 * props.row.TalentWinrateBase).toFixed(2) }}%
           </template>
+          <small v-if="props.row.SampleTooSmall">uncertain</small>
         </b-table-column>
 
-        <b-table-column field="TalentWinrateScaling" label="Win Rate Advantage" sortable numeric>
-          <template v-if="isNaN(props.row.TalentWinrateScaling) || props.row.SampleTooSmall">
-            <span class="mdi mdi-gauge-empty mdi-18px" title="Not enough data"></span>
-          </template>
-          <template v-else>
-            {{ (props.row.TalentWinrateScaling > 0? '+' : '') + (100 * props.row.TalentWinrateScaling / getLevelBuckets()).toFixed(2) }}% <small>for {{ getLevelsPerBucket(props.row) + (getLevelsPerBucket(props.row) > 1? ' Levels' : ' Level') }}</small>
+        <b-table-column field="TalentWinrateMax" label="Max Level Win Rate" meta="Estimated." sortable numeric>
+          <template v-if="!isNaN(props.row.TalentWinrateMax)">
+            {{ (100 * props.row.TalentWinrateMax).toFixed(2) }}%
+            <small v-if="props.row.SampleTooSmall">uncertain</small>
           </template>
         </b-table-column>
-
       </template>
     </b-table>
   </div>

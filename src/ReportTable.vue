@@ -12,9 +12,6 @@
           <b-dropdown-item v-for="rarity in RARITIES" :key="rarity" :value="rarity">{{ rarity }} Talents</b-dropdown-item>
         </b-dropdown>
       </p>
-
-      <b-input placeholder="Search…" type="search" icon="magnify" v-model="filterName"></b-input>
-
     </b-field>
 
     <b-field>
@@ -119,7 +116,6 @@ export default Vue.component('report-table', {
       const giveTrue = (x) => true;
       const filters = [
         this.filterRarity != ''? (entry) => maps.getTalentRarity(entry.Talent) == this.filterRarity : giveTrue,
-        this.filterName   != ''? (entry) => maps.getHero(entry.Actor).includes(this.filterName) || maps.getTalentName(entry.Talent).includes(this.filterName) : giveTrue,
         !this.filterLowPickrate? (entry) => !entry.SampleTooSmall : giveTrue,
       ];
       const and = (a, b) => a && b;
@@ -128,12 +124,6 @@ export default Vue.component('report-table', {
     },
     totalPicks: function() {
       return ReportService.getTotalPicks(this.selectedMode);
-    },
-    playersPerMatch: function() {
-      return maps.playersPerMatch(this.selectedMode);
-    },
-    hasTalents: function() {
-      return maps.hasTalents(this.selectedMode);
     },
   },
   components: {
