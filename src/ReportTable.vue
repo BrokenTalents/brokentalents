@@ -4,12 +4,12 @@
       <p class="control">
         <b-dropdown v-model="filterRarity">
           <button class="button" slot="trigger">
-            <span>{{ filterRarity || 'All' }} Talents</span>
+            <span>{{ filterRarity.replace('None', 'No') || 'All' }} Talents</span>
             <b-icon icon="menu-down"></b-icon>
           </button>
 
           <b-dropdown-item value="">All Talents</b-dropdown-item>
-          <b-dropdown-item v-for="rarity in RARITIES" :key="rarity" :value="rarity">{{ rarity }} Talents</b-dropdown-item>
+          <b-dropdown-item v-for="rarity in RARITIES" :key="rarity" :value="rarity">{{ rarity.replace('None', 'No') }} Talents</b-dropdown-item>
         </b-dropdown>
       </p>
     </b-field>
