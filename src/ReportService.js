@@ -2,7 +2,7 @@ import * as maps from './maps/maps';
 import * as metadata from '../data/2d73896c/metadata.json';
 
 const POPULAR_THRESHOLD = 1.0; // percent
-const PICKS_THRESHOLD = 200; // picks
+const PICKS_THRESHOLD = 300; // picks
 
 const report = require('../data/2d73896c/report.json')
   .filter((entry) => entry.Actor != undefined); // bad data from API downtime
@@ -66,6 +66,7 @@ for(let mode of modes) {
     return Object.assign({}, entry, {
       TalentWinrateBase: intercept,
       TalentWinrateScaling: slope, // to 1 = max level
+      TalentWinrateMax: intercept + slope,
       TalentWinrateLevelScaling: slope / maps.getMaxLevel(entry),
       TotalPicks: sum_weights || entry.Count, // NoTalent has no weights
       TotalWinner: sum_y / sum_weights || entry.Winner,

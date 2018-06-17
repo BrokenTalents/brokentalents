@@ -45,16 +45,5 @@ module.exports = {
     new MiniCssExtractPlugin({
     }),
     new OptimizeCssAssetsPlugin(),
-  ].concat(process.env.NODE_ENV == 'production' ?  [
-    new PurgecssPlugin({
-      paths: glob.sync([
-        './src/*.html',
-        './src/*.js',
-        './src/*.vue',
-        './src/**/*.vue',
-        './node_modules/buefy/src/components/table/*',
-        './node_modules/buefy/src/components/pagination/*',
-      ])
-    }),
-  ] : []),
+  ],
 };

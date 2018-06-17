@@ -22,13 +22,14 @@ export default Vue.component('win-pick-scatter', {
     selectedMode() {
       this.refresh();
     },
-    selectedActor() {
+    filterLowPickrate() {
       this.refresh();
     },
   },
   methods: {
     refresh() {
-      const data = ReportService.getReport(this.selectedMode);
+      const data = ReportService.getReport(this.selectedMode)
+        .filter((entry) => !this.filterLowPickrate? !entry.SampleTooSmall : true);
       const total = ReportService.getTotalPicks(this.selectedMode);
       const dataWithRarity = (rarity) => data.filter((entry) => maps.getTalentRarity(entry.Talent) == rarity);
 
