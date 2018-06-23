@@ -3,6 +3,7 @@ import * as metadata from '../data/2d73896c/metadata.json';
 
 const POPULAR_THRESHOLD = 1.0; // percent
 const PICKS_THRESHOLD = 300; // picks
+const VARIANCE_THRESHOLD = 0.25; // % minimum accuracy
 
 const report = require('../data/2d73896c/report.json')
   .filter((entry) => entry.Actor != undefined); // bad data from API downtime
@@ -63,14 +64,23 @@ for(let mode of modes) {
     const slope = (n * sum_xy - sum_x * sum_y) / (n * sum_xx - sum_x * sum_x);
     const intercept = (sum_y - slope * sum_x) / n;
 
+    // sum (actual - average)^2
+    const sstot = ys.map((y) => Math.pow(y - sum_y / n, 2)).reduce(sum, 0);
+    // sum (actual - estimated)^2
+    const ssres = ys.map((y, index) => Math.pow((intercept + slope * xs[index]) - y, 2)).reduce(sum, 0);
+    // r^2 is also correlation coefficient ^ 2
+    const rsquare = 1 - ssres / sstot;
+
     return Object.assign({}, entry, {
       TalentWinrateBase: intercept,
       TalentWinrateScaling: slope, // to 1 = max level
       TalentWinrateMax: intercept + slope,
       TalentWinrateLevelScaling: slope / maps.getMaxLevel(entry),
+      TalentWinrateVariance: rsquare,
       TotalPicks: sum_weights || entry.Count, // NoTalent has no weights
       TotalWinner: sum_y / sum_weights || entry.Winner,
       SampleTooSmall: sum_weights < PICKS_THRESHOLD,
+      VarianceTooLarge: rsquare < VARIANCE_THRESHOLD,
     });
   });
   reports.set(mode, reportFilterModeRegressed);
@@ -100,10 +110,10 @@ for(let mode of modes) {
     .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
     .sort((entry1, entry2) => entry2.TotalWinner - entry1.TotalWinner)[0]);
   topLowLevel.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
     .sort((entry1, entry2) => entry2.TalentWinrateBase - entry1.TalentWinrateBase)[0]);
   topScaling.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
     .sort((entry1, entry2) => entry2.TalentWinrateLevelScaling - entry1.TalentWinrateLevelScaling)[0]);
 
   if (actors.length == 0) {

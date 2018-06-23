@@ -16,7 +16,7 @@
 
     <b-field>
       <div class="control">
-        <b-switch v-model="filterLowPickrate">Include entries without enough data</b-switch>
+        <b-switch v-model="filterLowPickrate">Include entries without enough data (statistics will be inaccurate)</b-switch>
       </div>
     </b-field>
 
@@ -70,18 +70,23 @@
             {{ (100 * props.row.Winner).toFixed(2) }}% <!-- No Talent -->
           </template>
           <template v-else>
-            {{ (100 * props.row.TalentWinrateBase).toFixed(2) }}%
+            {{ (100 * props.row.TalentWinrateBase).toFixed(0) }}%
           </template>
         </b-table-column>
 
         <b-table-column field="TalentWinrateMax" label="Max Level Win Rate" meta="Estimated." :visible="hasTalents" sortable numeric>
           <template v-if="!isNaN(props.row.TalentWinrateMax)">
-            {{ (100 * props.row.TalentWinrateMax).toFixed(2) }}%
+            {{ (100 * props.row.TalentWinrateMax).toFixed(0) }}%
+            <small v-if="props.row.VarianceTooLarge"><br />uncertain</small>
           </template>
         </b-table-column>
 
+        <b-table-column field="TalentWinrateVariance" label="Variance" :visible="hasTalents" sortable numeric>
+          {{ props.row.TalentWinrateVariance.toFixed(2) }}
+        </b-table-column>
+
         <b-table-column field="Winner" label="Win Rate" :visible="!hasTalents" sortable numeric>
-          {{ (100 * props.row.Winner).toFixed(2) }}%
+          {{ (100 * props.row.Winner).toFixed(0) }}%
         </b-table-column>
 
         <b-table-column field="TotalPicks" label="Pick Rate" sortable numeric>

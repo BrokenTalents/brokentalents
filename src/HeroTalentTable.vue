@@ -22,15 +22,15 @@
             {{ (100 * props.row.Winner).toFixed(2) }}% <!-- No Talent -->
           </template>
           <template v-else>
-            {{ (100 * props.row.TalentWinrateBase).toFixed(2) }}%
+            {{ (100 * props.row.TalentWinrateBase).toFixed(0) }}%
           </template>
-          <small v-if="props.row.SampleTooSmall">uncertain</small>
+          <small v-if="props.row.SampleTooSmall"><br />uncertain</small>
         </b-table-column>
 
         <b-table-column field="TalentWinrateMax" label="Max Level Win Rate" meta="Estimated." sortable numeric>
           <template v-if="!isNaN(props.row.TalentWinrateMax)">
-            {{ (100 * props.row.TalentWinrateMax).toFixed(2) }}%
-            <small v-if="props.row.SampleTooSmall">uncertain</small>
+            {{ (100 * props.row.TalentWinrateMax).toFixed(0) }}%
+            <small v-if="props.row.SampleTooSmall || props.row.VarianceTooLarge"><br />uncertain</small>
           </template>
         </b-table-column>
       </template>
