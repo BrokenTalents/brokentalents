@@ -18,7 +18,7 @@
 
 <style scoped>
 .title-box {
-  font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
 }
 .is-centered {
