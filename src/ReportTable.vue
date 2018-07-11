@@ -81,10 +81,6 @@
           </template>
         </b-table-column>
 
-        <b-table-column field="TalentWinrateVariance" label="Variance" :visible="hasTalents" sortable numeric>
-          {{ props.row.TalentWinrateVariance.toFixed(2) }}
-        </b-table-column>
-
         <b-table-column field="Winner" label="Win Rate" :visible="!hasTalents" sortable numeric>
           {{ (100 * props.row.Winner).toFixed(0) }}%
         </b-table-column>
