@@ -51,7 +51,14 @@ module.exports = {
   },
   etl: {
     /* attributes to be extracted and renamed from main API data */
-    participant: [ ['Winner', ['attributes', 'stats', 'winner']] ],
+    participant: [
+      ['Winner', ['attributes', 'stats', 'winner']],
+      ['Kills', ['attributes', 'stats', 'kills']],
+      ['Deaths', ['attributes', 'stats', 'deaths']],
+      ['CrystalMinerKills', ['attributes', 'stats', 'crystalMineCaptures']],
+      ['GoldMinerKills', ['attributes', 'stats', 'goldMineCaptures']],
+      ['TurretKills', ['attributes', 'stats', 'turretCaptures']],
+    ],
     roster: [ ],
     match: [ ['Mode', ['attributes', 'gameMode']] ],
   },
@@ -67,7 +74,7 @@ module.exports = {
     /* criteria or 'filters' */
     group: ['Actor', 'Talent', 'Mode', 'LevelBucket'],
     /* stats */
-    sum: ['Winner'],
+    sum: ['Winner', 'Kills', 'Deaths', 'CrystalMinerKills', 'GoldMinerKills', 'TurretKills'],
   },
   file: {
     pattern: (moment) => `./data/${hashSettings(module.exports)}/${moment.toISOString()}.json`,

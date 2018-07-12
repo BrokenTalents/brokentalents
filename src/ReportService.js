@@ -5,7 +5,7 @@ const POPULAR_THRESHOLD = 1.0; // percent
 const PICKS_THRESHOLD = 300; // picks
 const VARIANCE_THRESHOLD = 0.25; // % minimum accuracy
 
-const report = require('../data/2d73896c/report.json')
+const report = require('../data/5f7773da/report.json')
   .filter((entry) => entry.Actor != undefined); // bad data from API downtime
 
 const reports = new Map();
@@ -19,6 +19,9 @@ const topLegendaryWins = new Map();
 const topLowLevel = new Map();
 const topScaling = new Map();
 const topUnpopularWins = new Map();
+const topKillDeathPoints = new Map();
+const topObjectivePoints = new Map();
+const topBlitzPointsDelta = new Map();
 let totalMatches = 0;
 let actors = [];
 const modes = metadata.config.api.modes;
@@ -80,6 +83,9 @@ for(let mode of modes) {
       TotalPicks: sum_weights || entry.Count, // NoTalent has no weights
       TotalWinner: sum_y / sum_weights || entry.Winner,
       SampleTooSmall: sum_weights < PICKS_THRESHOLD,
+      KillDeathPoints: maps.killDeathPoints(entry),
+      ObjectivePoints: maps.objectivePoints(entry),
+      BlitzPointsDelta: maps.blitzPointsDelta(entry),
       VarianceTooLarge: rsquare < VARIANCE_THRESHOLD,
     });
   });
@@ -115,6 +121,15 @@ for(let mode of modes) {
   topScaling.set(mode, reports.get(mode)
     .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
     .sort((entry1, entry2) => entry2.TalentWinrateLevelScaling - entry1.TalentWinrateLevelScaling)[0]);
+  topKillDeathPoints.set(mode, reports.get(mode)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .sort((entry1, entry2) => entry2.KillDeathPoints - entry1.KillDeathPoints)[0]);
+  topObjectivePoints.set(mode, reports.get(mode)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .sort((entry1, entry2) => entry2.ObjectivePoints - entry1.ObjectivePoints)[0]);
+  topBlitzPointsDelta.set(mode, reports.get(mode)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .sort((entry1, entry2) => entry2.BlitzPointsDelta - entry1.BlitzPointsDelta)[0]);
 
   if (actors.length == 0) {
     actors = [...new Set(reports.get(mode).map((entry) => entry.Actor))];
@@ -168,6 +183,18 @@ export default {
 
   getBestUnpopular(mode) {
     return topUnpopular.get(mode);
+  },
+
+  getTopKillDeathPoints(mode) {
+    return topKillDeathPoints.get(mode);
+  },
+
+  getTopObjectivePoints(mode) {
+    return topObjectivePoints.get(mode);
+  },
+
+  getTopBlitzPointsDelta(mode) {
+    return topBlitzPointsDelta.get(mode);
   },
 
   getActors() {

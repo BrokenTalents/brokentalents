@@ -78,6 +78,18 @@ function playersPerMatch(mode) {
   return mode.includes('5v5')? 10 : 6;
 }
 
+function killDeathPoints(entry) {
+  return entry.Kills - entry.Deaths;
+}
+
+function objectivePoints(entry) {
+  return entry.CrystalMinerKills + entry.GoldMinerKills + entry.TurretKills;
+}
+
+function blitzPointsDelta(entry) {
+  return killDeathPoints(entry) + objectivePoints(entry) * 3;
+}
+
 module.exports = {
   RARITIES,
   getTalentName,
@@ -88,4 +100,7 @@ module.exports = {
   getMode,
   hasTalents,
   playersPerMatch,
+  killDeathPoints,
+  objectivePoints,
+  blitzPointsDelta,
 };

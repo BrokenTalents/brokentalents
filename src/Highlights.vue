@@ -72,6 +72,33 @@
                   :entry="stats.topLegendaryWin" />
     </div>
 
+    {{ stats.topBlitzPoints }}
+    <div class="column" v-if="!!stats.topKillDeathPoints">
+      <talent-box class="is-dark notification"
+                  title="Soldier"
+                  type="Kill Death Difference"
+                  label=""
+                  :value="stats.topKillDeathPoints.KillDeathPoints.toFixed(2)"
+                  :entry="stats.topKillDeathPoints" />
+    </div>
+
+    <div class="column" v-if="!!stats.topObjectivePoints">
+      <talent-box class="is-dark notification"
+                  title="Trebuchet"
+                  type="Objectives"
+                  label=""
+                  :value="stats.topObjectivePoints.ObjectivePoints.toFixed(2)"
+                  :entry="stats.topObjectivePoints" />
+    </div>
+
+    <div class="column" v-if="!!stats.topBlitzPointsDelta">
+      <talent-box class="is-dark notification"
+                  title="Blitzkrieg"
+                  type="Points Difference"
+                  label=""
+                  :value="stats.topBlitzPointsDelta.BlitzPointsDelta.toFixed(2)"
+                  :entry="stats.topBlitzPointsDelta" />
+    </div>
   </div>
 </template>
 
@@ -96,6 +123,9 @@ export default Vue.component('highlights', {
         topLegendaryWin: ReportService.getTopLegendaryWins(this.selectedMode),
         topLowLevel: ReportService.getTopLowLevel(this.selectedMode),
         topScaling: ReportService.getTopScaling(this.selectedMode),
+        topKillDeathPoints: ReportService.getTopKillDeathPoints(this.selectedMode),
+        topObjectivePoints: ReportService.getTopObjectivePoints(this.selectedMode),
+        topBlitzPointsDelta: ReportService.getTopBlitzPointsDelta(this.selectedMode),
       };
     },
     playersPerMatch: function() {
