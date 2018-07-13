@@ -13,7 +13,7 @@
         The data can be imprecise and can be contrary to your personal experience.
       </p>
       <p>
-        This site shares visitor data with Google Analytics and Google AdSense which store cookies. If you do not want that, you can <a @click="this.$ga.disable()">opt out of Google Analytics</a> and <a href="http://www.youronlinechoices.com/">opt out of targeted advertisements</a>.
+      This site shares visitor data with Google Analytics and Google AdSense which store cookies. If you do not want that, you can <a @click="optOutAnalytics()">opt out of Google Analytics</a><span v-if="gaOptedOut"> (Google Analytics is disabled for you)</span> and <a href="http://www.youronlinechoices.com/">opt out of targeted advertisements</a>.
       </p>
     </div>
   </div>
@@ -28,11 +28,26 @@ export default Vue.component('intro-box', {
   data: function() {
     return {
       hideIntro: !!localStorage.getItem('hideIntro'),
+      gaOptedOut: !!localStorage.getItem('gaOptOut'),
     };
+  },
+  methods: {
+    optOutAnalytics: function() {
+      this.$ga.disable();
+      this.gaOptedOut = true;
+    },
+  },
+  created: function() {
+    if (this.gaOptedOut) {
+      this.$ga.disable();
+    }
   },
   watch: {
     hideIntro: function(value) {
       localStorage.setItem('hideIntro', value);
+    },
+    gaOptedOut: function(value) {
+      localStorage.setItem('gaOptOut', value);
     },
     selectedMode: function(value) {
       this.hideIntro = !!localStorage.getItem('hideIntro');
