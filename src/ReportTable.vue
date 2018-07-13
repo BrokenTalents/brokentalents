@@ -67,7 +67,7 @@
 
         <b-table-column field="TalentWinrateBase" label="Level 1 Win Rate" meta="Estimated." :visible="hasTalents" sortable numeric>
           <template v-if="isNaN(props.row.TalentWinrateBase)">
-            {{ (100 * props.row.Winner).toFixed(2) }}% <!-- No Talent -->
+            {{ (100 * props.row.Winner).toFixed(0) }}% <!-- No Talent -->
           </template>
           <template v-else>
             {{ (100 * props.row.TalentWinrateBase).toFixed(0) }}%
@@ -81,8 +81,8 @@
           </template>
         </b-table-column>
 
-        <b-table-column field="BlitzPointsDelta" label="Points Difference" :visible="hasTalents" sortable numeric>
-          {{ props.row.BlitzPointsDelta.toFixed(2) }}
+        <b-table-column field="BlitzPointsDelta" label="Blitz Points" :visible="hasTalents" sortable numeric>
+          {{ (props.row.BlitzPointsDelta > 0? '+' : '') + props.row.BlitzPointsDelta.toFixed(2) }}
         </b-table-column>
 
         <b-table-column field="Winner" label="Win Rate" :visible="!hasTalents" sortable numeric>
