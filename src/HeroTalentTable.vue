@@ -61,7 +61,8 @@ export default Vue.component('hero-talent-table', {
     },
     heroReport: function() {
       return ReportService.getReport(this.selectedMode)
-          .filter((entry) => entry.Actor == this.selectedActor);
+          .filter((entry) => entry.Actor == this.selectedActor)
+          .sort((entry1, entry2) => maps.getTalentRarityIndex(entry1.Talent) - maps.getTalentRarityIndex(entry2.Talent));
     },
     totalHeroPicks: function() {
       return this.heroReport

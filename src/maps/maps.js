@@ -45,6 +45,10 @@ function getTalentRarity(talent) {
   }
 }
 
+function getTalentRarityIndex(talent) {
+  return RARITIES.indexOf(getTalentRarity(talent));
+}
+
 function getMaxLevel(entry) {
   switch (getTalentRarity(entry.Talent)) {
     case 'unknown':
@@ -94,6 +98,7 @@ module.exports = {
   RARITIES,
   getTalentName,
   getTalentRarity,
+  getTalentRarityIndex,
   getMaxLevel,
   getScaledLevel,
   getHero,
