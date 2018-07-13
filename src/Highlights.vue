@@ -72,13 +72,12 @@
                   :entry="stats.topLegendaryWin" />
     </div>
 
-    {{ stats.topBlitzPoints }}
     <div class="column" v-if="!!stats.topKillDeathPoints">
       <talent-box class="is-dark notification"
                   title="Soldier"
                   type="Kill Death Difference"
                   label=""
-                  :value="stats.topKillDeathPoints.KillDeathPoints.toFixed(2)"
+                  :value="'+' + stats.topKillDeathPoints.KillDeathPoints.toFixed(2)"
                   :entry="stats.topKillDeathPoints" />
     </div>
 
@@ -94,9 +93,9 @@
     <div class="column" v-if="!!stats.topBlitzPointsDelta">
       <talent-box class="is-dark notification"
                   title="Blitzkrieg"
-                  type="Points Difference"
+                  type="Blitz Points"
                   label=""
-                  :value="stats.topBlitzPointsDelta.BlitzPointsDelta.toFixed(2)"
+                  :value="'+' + stats.topBlitzPointsDelta.BlitzPointsDelta.toFixed(2)"
                   :entry="stats.topBlitzPointsDelta" />
     </div>
   </div>
