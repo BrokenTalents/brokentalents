@@ -1,6 +1,6 @@
 <template>
   <section>
-    <b-field>
+    <b-field v-show="hasTalents">
       <p class="control">
         <b-dropdown v-model="filterRarity">
           <button class="button" slot="trigger">
