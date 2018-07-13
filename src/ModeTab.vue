@@ -21,7 +21,7 @@
       data-ad-slot="3898218968">
     </Adsense>
 
-    <div class="columns is-multiline" v-if="hasTalents">
+    <div class="columns is-multiline">
       <div class="column is-two-thirds">
         <h2 class="title is-2">Individual Hero Statistics</h2>
         <h3 class="subtitle">Select a Hero</h3>

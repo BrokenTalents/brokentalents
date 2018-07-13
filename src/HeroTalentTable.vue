@@ -1,10 +1,15 @@
 <template>
   <div class="box">
-    <div style="display: flex; align-items: center; justify-content: space-between;">
-      <hero-image :actor="selectedActor" class="is-64x64"></hero-image>
+    <div class="columns is-mobile">
+      <div class="column is-one-quarter">
+        <hero-image :actor="selectedActor" class="is-64x64"></hero-image>
+      </div>
+      <div class="column has-text-centered">{{ (100 * heroReport[0].Winner).toFixed(0) }}% Win&nbsp;Rate</div>
+      <div class="column has-text-centered">{{ (100 * totalHeroPicks / totalPicks * playersPerMatch).toFixed(0) }}% Pick&nbsp;Rate</div>
     </div>
 
-    <b-table :data="heroReport"
+    <b-table v-show="hasTalents"
+             :data="heroReport"
              :mobile-cards="false">
       <template slot-scope="props" slot="header">
         <b-tooltip :active="!!props.column.meta" :label="props.column.meta || ''" position="is-bottom" dashed>
@@ -19,7 +24,7 @@
 
         <b-table-column field="TalentWinrateBase" label="Level 1 Win Rate" meta="Estimated." sortable numeric>
           <template v-if="isNaN(props.row.TalentWinrateBase)">
-            {{ (100 * props.row.Winner).toFixed(2) }}% <!-- No Talent -->
+            {{ (100 * props.row.Winner).toFixed(0) }}% <!-- No Talent -->
           </template>
           <template v-else>
             {{ (100 * props.row.TalentWinrateBase).toFixed(0) }}%
@@ -56,6 +61,9 @@ export default Vue.component('hero-talent-table', {
     };
   },
   computed: {
+    hasTalents: function() {
+      return maps.hasTalents(this.selectedMode);
+    },
     totalPicks: function() {
       return ReportService.getTotalPicks(this.selectedMode);
     },
