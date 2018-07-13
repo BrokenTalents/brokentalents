@@ -38,7 +38,7 @@
             Built with the <a href="http://developer.vainglorygame.com">Vainglory API</a>.
             Images by <a href="https://vainglorygame.com">Super Evil Mega Corp</a>, Gwen Icon by Bleeko.
             <br />
-            Join the <a href="https://discord.gg/txTchJY">Discord Server</a> if you have questions.
+            Join the <a href="https://discord.gg/txTchJY">Discord Server</a> or <a href="https://twitter.com/brokentalents">Tweet</a> if you have questions.
           </p>
           <p>
           </p>
