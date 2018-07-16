@@ -33,7 +33,7 @@ function main() {
     config,
   };
   const saveMetadata = (path, data) =>
-    Future.node((cb) => fsPath.writeFile(path, JSON.stringify(data), cb))
+    Future.node((cb) => fsPath.writeFile(path, JSON.stringify(data, null, 2), cb))
           .map(() => data);
 
   const futures = R.map(loadFTimestamped, laterMoments);
