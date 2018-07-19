@@ -4,8 +4,8 @@
       <div class="column is-one-quarter">
         <hero-image :actor="selectedActor" class="is-64x64"></hero-image>
       </div>
-      <div class="column has-text-centered">{{ (100 * heroReport[0].Winner).toFixed(0) }}% Win&nbsp;Rate</div>
-      <div class="column has-text-centered">{{ (100 * totalHeroPicks / totalPicks * playersPerMatch).toFixed(0) }}% Pick&nbsp;Rate</div>
+      <div class="column has-text-centered">{{ (100 * totalHeroReport.Winner / totalHeroReport.Count).toFixed(0) }}% Win&nbsp;Rate</div>
+      <div class="column has-text-centered">{{ (100 * totalHeroReport.Count / totalPicks * playersPerMatch).toFixed(0) }}% Pick&nbsp;Rate</div>
     </div>
 
     <b-table v-show="hasTalents"
@@ -72,10 +72,12 @@ export default Vue.component('hero-talent-table', {
           .filter((entry) => entry.Actor == this.selectedActor)
           .sort((entry1, entry2) => maps.getTalentRarityIndex(entry1.Talent) - maps.getTalentRarityIndex(entry2.Talent));
     },
-    totalHeroPicks: function() {
+    totalHeroReport: function() {
       return this.heroReport
-        .map((entry) => entry.Count)
-        .reduce((agg, cur) => agg + cur, 0);
+        .map((entry) => ({ 'Winner': entry.Count * entry.Winner, 'Count': entry.Count }))
+        .reduce((agg, cur) =>
+          ({ 'Winner': agg.Winner + cur.Winner, 'Count': agg.Count + cur.Count }),
+          { 'Winner': 0, 'Count': 0 });
     },
     playersPerMatch: function() {
       return maps.playersPerMatch(this.selectedMode);
