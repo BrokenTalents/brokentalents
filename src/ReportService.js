@@ -116,19 +116,19 @@ for(let mode of modes) {
     .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
     .sort((entry1, entry2) => entry2.TotalWinner - entry1.TotalWinner)[0]);
   topLowLevel.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.TalentWinrateBase)
     .sort((entry1, entry2) => entry2.TalentWinrateBase - entry1.TalentWinrateBase)[0]);
   topScaling.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.TalentWinrateLevelScaling)
     .sort((entry1, entry2) => entry2.TalentWinrateLevelScaling - entry1.TalentWinrateLevelScaling)[0]);
   topKillDeathPoints.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.KillDeathPoints)
     .sort((entry1, entry2) => entry2.KillDeathPoints - entry1.KillDeathPoints)[0]);
   topObjectivePoints.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.ObjectivePoints)
     .sort((entry1, entry2) => entry2.ObjectivePoints - entry1.ObjectivePoints)[0]);
   topBlitzPointsDelta.set(mode, reports.get(mode)
-    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge)
+    .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.BlitzPointsDelta)
     .sort((entry1, entry2) => entry2.BlitzPointsDelta - entry1.BlitzPointsDelta)[0]);
 
   if (actors.length == 0) {
