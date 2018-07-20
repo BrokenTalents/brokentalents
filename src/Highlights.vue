@@ -14,7 +14,7 @@
                   title="Trending"
                   type="Total Pick Rate"
                   label="%"
-                  :value="(100 * playersPerMatch * stats.topPick.Count / stats.totalPicks).toFixed(2)"
+                  :value="(100 * playersPerMatch * stats.topPick.TotalPicks / stats.totalPicks).toFixed(2)"
                   :entry="stats.topPick" />
     </div>
 
@@ -23,7 +23,7 @@
                   title="Beginner"
                   type="Level 1 Win Rate"
                   label="%"
-                  :value="Math.round(100 * stats.topLowLevel.Winner)"
+                  :value="Math.round(100 * stats.topLowLevel.TalentWinrateBase)"
                   :entry="stats.topLowLevel" />
     </div>
 

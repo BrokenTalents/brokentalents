@@ -18,8 +18,8 @@
           <span>{{ Math.round(100 * playersPerMatch * props.row.Count / totalPicks) }}%</span>
         </b-table-column>
 
-        <b-table-column field="Winner" label="Win Rate" sortable numeric>
-          <span>{{ Math.round(100 * props.row.Winner) }}%</span>
+        <b-table-column field="TotalWinner" label="Win Rate" sortable numeric>
+          <span>{{ Math.round(100 * props.row.TotalWinner) }}%</span>
         </b-table-column>
       </template>
     </b-table>
