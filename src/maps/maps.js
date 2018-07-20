@@ -23,7 +23,8 @@ function getTalentName(talent) {
                .replace(/([A-Z])/g, (s) => ' ' + s.toLowerCase())
                .split(' ') // capitalize first letter
                .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-               .join(' ');
+               .join(' ')
+               .substring(1);
   }
 }
 

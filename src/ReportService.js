@@ -141,6 +141,32 @@ export default {
     return reports.get(mode);
   },
 
+  getCsv(mode) {
+    return 'Hero,Talent,Rarity,Kills,Deaths,TurretKills,' +
+      'AverageWinrate,BaseLevelWinrate,MaxLevelWinrate,LevelWinrateVariance,Wins,Picks' +
+      '\n' +
+      reports.get(mode)
+      .map((entry) => [
+        maps.getHero(entry.Actor),
+        maps.getTalentName(entry.Talent),
+        maps.getTalentRarity(entry.Talent),
+        entry.Kills,
+        entry.Deaths,
+        /*
+        entry.CrystalMinerKills,
+        entry.GoldMinerKills,
+        */
+        entry.TurretKills,
+        entry.TotalWinner,
+        entry.TalentWinrateBase || entry.TotalWinner,
+        entry.TalentWinrateMax || entry.TotalWinner,
+        entry.TalentWinrateVariance || entry.TotalWinner,
+        entry.TotalWinner * entry.TotalPicks,
+        entry.TotalPicks,
+      ].join(','))
+    .join('\n');
+  },
+
   getTotalPicks(mode) {
     return totalPicks.get(mode);
   },

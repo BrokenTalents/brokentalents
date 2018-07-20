@@ -30,6 +30,12 @@
         </b-tooltip>
       </template>
 
+      <template slot="footer">
+        <div class="has-text-right">
+          <button class="button" @click="downloadCsv()">Download CSV</button>
+        </div>
+      </template>
+
       <template slot-scope="props">
         <b-table-column field="Actor" label="Hero" sortable>
           <!-- desktop, table view -->
@@ -129,6 +135,16 @@ export default Vue.component('report-table', {
     },
     totalPicks: function() {
       return ReportService.getTotalPicks(this.selectedMode);
+    },
+  },
+  methods: {
+    downloadCsv: function() {
+      const csv = ReportService.getCsv(this.selectedMode);
+      const downloaderElement = document.createElement('a');
+      downloaderElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+      downloaderElement.target = '_blank';
+      downloaderElement.download = maps.getMode(this.selectedMode) + '.csv';
+      downloaderElement.click();
     },
   },
   components: {
