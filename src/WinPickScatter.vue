@@ -2,7 +2,7 @@
   <section>
     <div class="block" v-show="hasTalents">
       <b-radio v-model="yMetric" native-value="TotalWinner">
-        Average Win Rate
+        Win Rate
       </b-radio>
       <b-radio v-model="yMetric" native-value="TalentWinrateBase">
         Level 1 Win Rate
