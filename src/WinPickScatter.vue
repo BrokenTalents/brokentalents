@@ -1,5 +1,29 @@
 <template>
+  <section>
+    <div class="block" v-show="hasTalents">
+      <b-radio v-model="yMetric" native-value="TotalWinner">
+        Average Win Rate
+      </b-radio>
+      <b-radio v-model="yMetric" native-value="TalentWinrateBase">
+        Level 1 Win Rate
+      </b-radio>
+      <b-radio v-model="yMetric" native-value="TalentWinrateMax">
+        Max Level Win Rate
+      </b-radio>
+    </div>
+
+    <b-field>
+      <b-checkbox v-model="fixedXRange">
+        Fixed Range
+      </b-checkbox>
+      <b-checkbox v-model="filterLowPickrate">
+        Include entries without enough data (statistics will be inaccurate)
+      </b-checkbox>
+    </b-field>
+
     <div class="plotly" ref="graph"></div>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -25,6 +49,18 @@ export default Vue.component('win-pick-scatter', {
     filterLowPickrate() {
       this.refresh();
     },
+    yMetric() {
+      this.refresh();
+    },
+    fixedXRange() {
+      this.refresh();
+    },
+  },
+  data: function() {
+    return {
+      yMetric: 'TotalWinner',
+      fixedXRange: false,
+    };
   },
   methods: {
     refresh() {
@@ -34,7 +70,7 @@ export default Vue.component('win-pick-scatter', {
       const dataWithRarity = (rarity) => data.filter((entry) => maps.getTalentRarity(entry.Talent) == rarity);
 
       const traces = maps.RARITIES.map((rarity) => ({
-        x: dataWithRarity(rarity).map((entry) => entry.TotalWinner || entry.Winner),
+        x: dataWithRarity(rarity).map((entry) => entry[this.yMetric]),
         y: dataWithRarity(rarity).map((entry) => maps.playersPerMatch(this.selectedMode) * (entry.TotalCount || entry.Count) / total),
         text: dataWithRarity(rarity).map((entry) => maps.getHero(entry.Actor)),
         name: rarity,
@@ -47,6 +83,7 @@ export default Vue.component('win-pick-scatter', {
           title: 'Win Rate',
           fixedrange: true,
           tickformat: ',.0%',
+          range: this.fixedXRange? [0.25, 0.75] : undefined,
         },
         yaxis: {
           title: 'Pick Rate',
@@ -55,12 +92,39 @@ export default Vue.component('win-pick-scatter', {
         },
         margin: { t: 40, l: 40, b: 40, r: 40 },
         staticPlot: true,
+        shapes: [ {
+          type: 'line',
+          x0: 0.40,
+          y0: 0,
+          x1: 0.40,
+          y1: 1,
+          yref: 'paper',
+          line: {
+            color: 'grey',
+            width: 1.5,
+            dash: 'dot'
+          },
+        }, {
+          type: 'line',
+          x0: 0.60,
+          y0: 0,
+          x1: 0.60,
+          y1: 1,
+          yref: 'paper',
+          line: {
+            color: 'grey',
+            width: 1.5,
+            dash: 'dot'
+          }
+        } ],
       }, {
         displayModeBar: false
       });
     },
     resize() {
-      Plotly.Plots.resize(this.$refs.graph);
+      if (!!this.$refs.graph) {
+        Plotly.Plots.resize(this.$refs.graph);
+      }
     },
   }
 });
