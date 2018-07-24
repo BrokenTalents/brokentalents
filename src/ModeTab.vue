@@ -39,6 +39,11 @@
       <win-pick-scatter></win-pick-scatter>
     </div>
 
+    <div class="box" v-show="hasTalents">
+      <h2 class="title is-2">Summaries</h2>
+      <summaries></summaries>
+    </div>
+
     <Adsense class="adsense"
       data-ad-client="ca-pub-6856963757796636"
       data-ad-slot="4801023518">
@@ -68,6 +73,7 @@ import ReportTable from './ReportTable.vue';
 import IntroBox from './IntroBox.vue';
 import InstallNotification from './InstallNotification.vue';
 import WinPickScatter from './WinPickScatter.vue';
+import Summaries from './Summaries.vue';
 import RouterParamMixin from './RouterParamMixin';
 import * as maps from './maps/maps.js';
 
@@ -92,6 +98,7 @@ export default Vue.component('mode-tab', {
     IntroBox,
     WinPickScatter,
     InstallNotification,
+    Summaries,
   },
 });
 </script>

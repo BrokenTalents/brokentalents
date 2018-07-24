@@ -1,5 +1,6 @@
 import * as maps from './maps/maps';
 import * as metadata from '../data/2d73896c/metadata.json';
+import * as R from 'ramda';
 
 const POPULAR_THRESHOLD = 1.0; // percent
 const PICKS_THRESHOLD = 300; // picks
@@ -22,6 +23,7 @@ const topUnpopularWins = new Map();
 const topKillDeathPoints = new Map();
 const topObjectivePoints = new Map();
 const topBlitzPointsDelta = new Map();
+const summaryTalents = new Map();
 let totalMatches = 0;
 let actors = [];
 const modes = metadata.config.api.modes;
@@ -75,11 +77,13 @@ for(let mode of modes) {
     const rsquare = 1 - ssres / sstot;
 
     return Object.assign({}, entry, {
-      TalentWinrateBase: intercept,
-      TalentWinrateScaling: slope, // to 1 = max level
-      TalentWinrateMax: intercept + slope,
-      TalentWinrateLevelScaling: slope / maps.getMaxLevel(entry),
-      TalentWinrateVariance: rsquare,
+      _Count: 1, // TODO find a cleaner solution to convert the sum of relatives to absolutes in summaries
+      Rarity: maps.getTalentRarity(entry.Talent),
+      TalentWinrateBase: intercept || entry.Winner,
+      TalentWinrateScaling: slope || 0, // to 1 = max level
+      TalentWinrateMax: (intercept + slope) || entry.Winner,
+      TalentWinrateLevelScaling: (slope / maps.getMaxLevel(entry)) || 0,
+      TalentWinrateVariance: rsquare || 0,
       TotalPicks: sum_weights || entry.Count, // NoTalent has no weights
       TotalWinner: sum_y / sum_weights || entry.Winner,
       SampleTooSmall: sum_weights < PICKS_THRESHOLD,
@@ -107,13 +111,13 @@ for(let mode of modes) {
       entry.TotalPicks > PICKS_THRESHOLD)
     .sort((entry1, entry2) => entry2.TotalWinner - entry1.TotalWinner)[0]);
   topRareWins.set(mode, reports.get(mode)
-    .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Rare' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
+    .filter((entry) => entry.Rarity == 'Rare' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
     .sort((entry1, entry2) => entry2.TotalWinner - entry1.TotalWinner)[0]);
   topEpicWins.set(mode, reports.get(mode)
-    .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Epic' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
+    .filter((entry) => entry.Rarity == 'Epic' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
     .sort((entry1, entry2) => entry2.TotalWinner - entry1.TotalWinner)[0]);
   topLegendaryWins.set(mode, reports.get(mode)
-    .filter((entry) => maps.getTalentRarity(entry.Talent) == 'Legendary' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
+    .filter((entry) => entry.Rarity == 'Legendary' && 100 * playersPerMatch * entry.TotalPicks / totalPicks.get(mode))
     .sort((entry1, entry2) => entry2.TotalWinner - entry1.TotalWinner)[0]);
   topLowLevel.set(mode, reports.get(mode)
     .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.TalentWinrateBase)
@@ -130,6 +134,12 @@ for(let mode of modes) {
   topBlitzPointsDelta.set(mode, reports.get(mode)
     .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.BlitzPointsDelta)
     .sort((entry1, entry2) => entry2.BlitzPointsDelta - entry1.BlitzPointsDelta)[0]);
+
+  summaryTalents.set(mode,
+    new Map(Object.entries(
+      R.reduceBy(R.mergeWith((a, b) => R.is(String, a) ? a : R.add(a, b) ), 0, R.prop('Rarity'), reports.get(mode))
+    ))
+  );
 
   if (actors.length == 0) {
     actors = [...new Set(reports.get(mode).map((entry) => entry.Actor))];
@@ -221,6 +231,10 @@ export default {
 
   getTopBlitzPointsDelta(mode) {
     return topBlitzPointsDelta.get(mode);
+  },
+
+  getSummaryTalents(mode) {
+    return summaryTalents.get(mode);
   },
 
   getActors() {
