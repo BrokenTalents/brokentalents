@@ -1,19 +1,15 @@
 <template>
   <b-table :data="talentSummaries"
            :mobile-cards="false">
-    <template slot-scope="props">
-      <template slot-scope="props" slot="header">
-        <b-tooltip :active="!!props.column.meta" :label="props.column.meta || ''" position="is-bottom" dashed>
-          {{ props.column.label }}
-        </b-tooltip>
-      </template>
+    <template slot-scope="props" slot="header">
+      <b-tooltip :active="!!props.column.meta" :label="props.column.meta || ''" position="is-bottom" dashed>
+        {{ props.column.label }}
+      </b-tooltip>
+    </template>
 
+    <template slot-scope="props">
       <b-table-column field="Rarity" label="Rarity">
         {{ props.row.Rarity }}
-      </b-table-column>
-
-      <b-table-column field="TotalWinner" label="Win Rate" sortable numeric>
-        {{ (100 * props.row.TotalWinner / props.row._Count).toFixed(2) }}%
       </b-table-column>
 
       <b-table-column field="TalentWinrateBase" label="Level 1 Win Rate" meta="Estimated." sortable numeric>
