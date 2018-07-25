@@ -1,5 +1,5 @@
 import * as maps from './maps/maps';
-import * as metadata from '../data/2d73896c/metadata.json';
+import * as metadata from '../data/5f7773da/metadata.json';
 import * as R from 'ramda';
 
 const POPULAR_THRESHOLD = 1.0; // percent
