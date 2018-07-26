@@ -1,5 +1,6 @@
 import * as maps from './maps/maps';
 import * as metadata from '../data/5f7773da/metadata.json';
+import * as baseStats from '../data/vainglory.json'; // Thanks to https://github.com/oberocks/vainglory-base-stats
 import * as R from 'ramda';
 
 const POPULAR_THRESHOLD = 1.0; // percent
@@ -23,7 +24,7 @@ const topUnpopularWins = new Map();
 const topKillDeathPoints = new Map();
 const topObjectivePoints = new Map();
 const topBlitzPointsDelta = new Map();
-const summaryTalents = new Map();
+const summaries = new Map();
 let totalMatches = 0;
 let actors = [];
 const modes = metadata.config.api.modes;
@@ -76,8 +77,28 @@ for(let mode of modes) {
     // r^2 is also correlation coefficient ^ 2
     const rsquare = 1 - ssres / sstot;
 
+    const hero = maps.getHero(entry.Actor);
+    const baseStat = baseStats.heroes[hero.toLowerCase()];
+    const rateClass = (r) => {
+      let heroClass = '';
+      if (r.team_utility > r.offense) {
+        if (r.defense > r.team_utility) heroClass += 'Tank';
+        else heroClass += 'Healer';
+      } else {
+        if (r.offense > r.defense) heroClass += 'Squishy';
+        else heroClass += 'Warrior';
+      }
+      return heroClass;
+    };
+
     return Object.assign({}, entry, {
       _Count: 1, // TODO find a cleaner solution to convert the sum of relatives to absolutes in summaries
+      Hero: hero,
+      AttackType: baseStat.attack_type,
+      Difficulty: baseStat.difficulty,
+      HeroClass: rateClass(baseStat.ratings),
+      HeroSpeed: baseStat.ratings.mobility < 3 ? 'Slow' : baseStat.ratings.mobility < 6 ? 'Average' : 'Fast',
+      PrimaryRole: baseStat.primary_role,
       Rarity: maps.getTalentRarity(entry.Talent),
       TalentWinrateBase: intercept || entry.Winner,
       TalentWinrateScaling: slope || 0, // to 1 = max level
@@ -135,11 +156,35 @@ for(let mode of modes) {
     .filter((entry) => !entry.SampleTooSmall && !entry.VarianceTooLarge && !!entry.BlitzPointsDelta)
     .sort((entry1, entry2) => entry2.BlitzPointsDelta - entry1.BlitzPointsDelta)[0]);
 
-  summaryTalents.set(mode,
-    new Map(Object.entries(
-      R.reduceBy(R.mergeWith((a, b) => R.is(String, a) ? a : R.add(a, b) ), 0, R.prop('Rarity'), reports.get(mode))
-    ))
-  );
+  const addOrIdentity = (a, b) => R.is(String, a) ? a : R.add(a, b);
+  const summarizeByProp = (propName) => new Map(Object.entries(
+    R.reduceBy(R.mergeWith(addOrIdentity), 0, R.prop(propName), reports.get(mode))
+  ));
+  summaries.set(mode, [ {
+    'key': 'Rarity',
+    'name': 'Talent Rarity',
+    'data': [...summarizeByProp('Rarity').values()],
+  }, {
+    'key': 'Difficulty',
+    'name': 'Difficulty',
+    'data': [...summarizeByProp('Difficulty').values()],
+  }, {
+    'key': 'PrimaryRole',
+    'name': 'Primary Role',
+    'data': [...summarizeByProp('PrimaryRole').values()],
+  }, {
+    'key': 'AttackType',
+    'name': 'Attack Type',
+    'data': [...summarizeByProp('AttackType').values()],
+  }, {
+    'key': 'HeroSpeed',
+    'name': 'Speed',
+    'data': [...summarizeByProp('HeroSpeed').values()],
+  }, {
+    'key': 'HeroClass',
+    'name': 'Class',
+    'data': [...summarizeByProp('HeroClass').values()],
+  } ]);
 
   if (actors.length == 0) {
     actors = [...new Set(reports.get(mode).map((entry) => entry.Actor))];
@@ -157,7 +202,7 @@ export default {
       '\n' +
       reports.get(mode)
       .map((entry) => [
-        maps.getHero(entry.Actor),
+        entry.Hero,
         maps.getTalentName(entry.Talent),
         maps.getTalentRarity(entry.Talent),
         entry.Kills,
@@ -233,8 +278,8 @@ export default {
     return topBlitzPointsDelta.get(mode);
   },
 
-  getSummaryTalents(mode) {
-    return summaryTalents.get(mode);
+  getSummaries(mode) {
+    return summaries.get(mode);
   },
 
   getActors() {

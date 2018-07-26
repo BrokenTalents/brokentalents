@@ -39,7 +39,7 @@
       <win-pick-scatter></win-pick-scatter>
     </div>
 
-    <div class="box" v-show="hasTalents">
+    <div class="box">
       <h2 class="title is-2">Summaries</h2>
       <summaries></summaries>
     </div>
