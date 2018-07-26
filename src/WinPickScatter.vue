@@ -1,27 +1,35 @@
 <template>
   <section>
     <div class="block" v-show="hasTalents">
-      <b-radio v-model="yMetric" native-value="TotalWinner">
-        Win Rate
-      </b-radio>
-      <b-radio v-model="yMetric" native-value="TalentWinrateBase">
-        Level 1 Win Rate
-      </b-radio>
-      <b-radio v-model="yMetric" native-value="TalentWinrateMax">
-        Max Level Win Rate
-      </b-radio>
+      <b-field grouped group-multiline>
+        <label class="control label">Metric</label>
+        <p class="control">
+          <b-radio v-model="yMetric" native-value="TotalWinner">Win Rate</b-radio>
+        </p>
+        <p class="control">
+          <b-radio v-model="yMetric" native-value="TalentWinrateBase">Level 1 Win Rate</b-radio>
+        </p>
+        <p class="control">
+          <b-radio v-model="yMetric" native-value="TalentWinrateMax">Max Level Win Rate</b-radio>
+        </p>
+      </b-field>
     </div>
 
-    <b-field>
-      <b-checkbox v-model="fixedXRange">
-        Fixed Range
-      </b-checkbox>
-      <b-checkbox v-model="filterLowPickrate">
-        Include entries without enough data (statistics will be inaccurate)
-      </b-checkbox>
-    </b-field>
+    <div class="block">
+      <b-field grouped group-multiline>
+        <label class="control label">Options</label>
+        <p class="control">
+          <b-checkbox v-model="fixedXRange">Fixed Range</b-checkbox>
+        </p>
+        <p class="control">
+          <b-checkbox v-model="filterLowPickrate">Include entries without enough data</b-checkbox>
+        </p>
+      </b-field>
+    </div>
 
-    <div class="plotly" ref="graph"></div>
+    <div class="block">
+      <label class="label">Data</label>
+      <div class="plotly" ref="graph"></div>
     </div>
   </section>
 </template>
