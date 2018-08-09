@@ -21,9 +21,9 @@ module.exports = {
     baseUrl: 'https://api.dc01.gamelockerapp.com',
     timeout: 3,
     /* available: 3.1, 3.2, 3.3, … */
-    patchVersion: '3.5',
+    patchVersion: '3.6',
     /* moment js parsable string */
-    startDate: '2018-07-11 18Z',
+    startDate: '2018-08-08 18Z',
     /* available: eu, na, sg, cn, sa, ea */
     regions: ['sg', 'eu', 'na'],
     /* available: casual, 5v5_pvp_casual, ranked, 5v5_pvp_ranked, blitz_pvp_ranked, casual_aral */
