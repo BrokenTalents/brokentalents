@@ -294,6 +294,10 @@ export default {
     return totalMatches;
   },
 
+  getPatchVersion() {
+    return metadata.config.api.patchVersion;
+  },
+
   getLastUpdate() {
     return metadata.lastUpdate;
   },

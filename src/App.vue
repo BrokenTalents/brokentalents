@@ -7,7 +7,7 @@
             Broken Talents
           </h1>
           <h2 class="subtitle has-text-white">
-            Tilting Brawlers since Update 2.5
+            Vainglory {{ patchVersion }} meta statistics
           </h2>
         </div>
       </div>
@@ -81,6 +81,7 @@ export default {
       totalMatches: Math.floor(ReportService.getTotalMatches()/100)*100,
       lastUpdate: ReportService.getLastUpdate(),
       modes: ReportService.getModes(),
+      patchVersion: ReportService.getPatchVersion(),
       getMode: maps.getMode,
     };
   },
