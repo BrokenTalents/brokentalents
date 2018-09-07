@@ -32,14 +32,14 @@
             Last update: {{ lastUpdate }}, with {{ totalMatches }} matches total.
           </p>
           <p>
-            <strong>BrokenTalentsFun</strong>, the Vainglory Talents and Hero win rate statistics site, by shutterfly (<a href="https://schneefux.xyz">@schneefux</a>).
+            <strong>BrokenTalentsFun</strong>, the Vainglory Talents and Hero win rate statistics site, by <a href="https://schneefux.xyz">@schneefux</a>.
             <br />
             <a href="https://github.com/BrokenTalents/brokentalents.github.io">Source Code</a>.
             Built with the <a href="http://developer.vainglorygame.com">Vainglory API</a>.
             Using <a href="https://github.com/oberocks/vainglory-base-stats">Smash's base statistics</a>.
             Images by <a href="https://vainglorygame.com">Super Evil Mega Corp</a>, Gwen Icon by Bleeko.
             <br />
-            Join the <a href="https://discord.gg/txTchJY">Discord Server</a> or <a href="https://twitter.com/brokentalents">Tweet</a> if you have questions.
+            If you have questions, send a mail to <img src="/dist/assets/contact.png" style="margin-bottom: -4px">.
           </p>
           <p>
           </p>
