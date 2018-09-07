@@ -17118,6 +17118,20 @@
 					]
 				}
 			]
+		},
+		"yates" : {
+			"name" : "Yates",
+			"thumb" : "yates.png",
+			"difficulty" : "Medium",
+			"attack_type" : "Melee",
+			"description" : "",
+			"primary_role" : "Captain",
+			"ratings" : {
+				"offense" : 1,
+				"defense" : 2,
+				"team_utility" : 8,
+				"mobility" : 5
+			}
 		}
 	}
 }
