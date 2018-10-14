@@ -17132,6 +17132,20 @@
 				"team_utility" : 8,
 				"mobility" : 5
 			}
+		},
+		"inara" : {
+			"name" : "Inara",
+			"thumb" : "inara.png",
+			"difficulty" : "Medium",
+			"attack_type" : "Melee",
+			"description" : "",
+			"primary_role" : "Jungler",
+			"ratings" : {
+				"offense" : 7,
+				"defense" : 2,
+				"team_utility" : 3,
+				"mobility" : 9
+			}
 		}
 	}
 }
