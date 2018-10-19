@@ -1,5 +1,5 @@
 import * as maps from './maps/maps';
-import * as metadata from '../data/01ca8592/metadata.json';
+import * as metadata from '../data/43b7b84e/metadata.json';
 import * as baseStats from '../data/vainglory.json'; // Thanks to https://github.com/oberocks/vainglory-base-stats
 import * as R from 'ramda';
 
@@ -7,7 +7,7 @@ const POPULAR_THRESHOLD = 1.0; // percent
 const PICKS_THRESHOLD = 300; // picks
 const VARIANCE_THRESHOLD = 0.25; // % minimum accuracy
 
-const report = require('../data/01ca8592/report.json')
+const report = require('../data/43b7b84e/report.json')
   .filter((entry) => entry.Actor != undefined); // bad data from API downtime
 
 const reports = new Map();
