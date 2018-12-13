@@ -17146,6 +17146,20 @@
 				"team_utility" : 3,
 				"mobility" : 9
 			}
+		},
+		"magnus" : {
+			"name" : "Magnus",
+			"thumb" : "magnus.png",
+			"difficulty" : "Medium",
+			"attack_type" : "Ranged",
+			"description" : "",
+			"primary_role" : "Laner",
+			"ratings" : {
+				"offense" : 10,
+				"defense" : 3,
+				"team_utility" : 5,
+				"mobility" : 1
+			}
 		}
 	}
 }

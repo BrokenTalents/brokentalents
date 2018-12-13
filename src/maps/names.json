@@ -31,5 +31,8 @@
   "*Talent_Yates_TalentC*": "Rapid Response",
   "*Talent_Inara_TalentA*": "Dance Of Mending",
   "*Talent_Inara_TalentB*": "Banishing Might",
-  "*Talent_Inara_TalentC*": "Sacred Warrior"
+  "*Talent_Inara_TalentC*": "Sacred Warrior",
+  "*Talent_Magnus_TalentA*": "Mystic Seer",
+  "*Talent_Magnus_TalentB*": "Arcane Alchemist",
+  "*Talent_Magnus_TalentC*": "Infinite Arcana"
 }
