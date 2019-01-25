@@ -17160,6 +17160,20 @@
 				"team_utility" : 5,
 				"mobility" : 1
 			}
+		},
+		"ylva" : {
+			"name" : "ylva",
+			"thumb" : "ylva.png",
+			"difficulty" : "Hard",
+			"attack_type" : "Melee",
+			"description" : "",
+			"primary_role" : "Laner",
+			"ratings" : {
+				"offense" : 8,
+				"defense" : 2,
+				"team_utility" : 8,
+				"mobility" : 1
+			}
 		}
 	}
 }

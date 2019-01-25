@@ -34,5 +34,8 @@
   "*Talent_Inara_TalentC*": "Sacred Warrior",
   "*Talent_Magnus_TalentA*": "Mystic Seer",
   "*Talent_Magnus_TalentB*": "Arcane Alchemist",
-  "*Talent_Magnus_TalentC*": "Infinite Arcana"
+  "*Talent_Magnus_TalentC*": "Infinite Arcana",
+  "*Talent_Ylva_TalentA*": "Swift Shot",
+  "*Talent_Ylva_TalentB*": "Multi Mine",
+  "*Talent_Ylva_TalentC*": "Shattered Fang"
 }
