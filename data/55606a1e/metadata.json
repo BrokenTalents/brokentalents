@@ -1,0 +1,112 @@
+{
+  "lastUpdate": "2019-01-27T11:00:14.985Z",
+  "config": {
+    "api": {
+      "baseUrl": "https://api.dc01.gamelockerapp.com",
+      "timeout": 3,
+      "patchVersion": "3.10",
+      "startDate": "2019-01-23 18Z",
+      "regions": [
+        "sg",
+        "eu",
+        "na"
+      ],
+      "modes": [
+        "blitz_pvp_ranked",
+        "casual_aral",
+        "ranked",
+        "5v5_pvp_ranked"
+      ],
+      "matchesPerRequest": 5,
+      "requestsPerInterval": 50,
+      "interval": 1,
+      "intervalUnit": "hours",
+      "intervalsPerMinute": 1
+    },
+    "etl": {
+      "participant": [
+        [
+          "Winner",
+          [
+            "attributes",
+            "stats",
+            "winner"
+          ]
+        ],
+        [
+          "Kills",
+          [
+            "attributes",
+            "stats",
+            "kills"
+          ]
+        ],
+        [
+          "Deaths",
+          [
+            "attributes",
+            "stats",
+            "deaths"
+          ]
+        ],
+        [
+          "CrystalMinerKills",
+          [
+            "attributes",
+            "stats",
+            "crystalMineCaptures"
+          ]
+        ],
+        [
+          "GoldMinerKills",
+          [
+            "attributes",
+            "stats",
+            "goldMineCaptures"
+          ]
+        ],
+        [
+          "TurretKills",
+          [
+            "attributes",
+            "stats",
+            "turretCaptures"
+          ]
+        ]
+      ],
+      "roster": [],
+      "match": [
+        [
+          "Mode",
+          [
+            "attributes",
+            "gameMode"
+          ]
+        ]
+      ]
+    },
+    "reduce": {
+      "derived": [
+        null
+      ],
+      "group": [
+        "Actor",
+        "Talent",
+        "Mode",
+        "LevelBucket"
+      ],
+      "sum": [
+        "Winner",
+        "Kills",
+        "Deaths",
+        "CrystalMinerKills",
+        "GoldMinerKills",
+        "TurretKills"
+      ]
+    },
+    "file": {},
+    "self": {
+      "levelBuckets": 5
+    }
+  }
+}
