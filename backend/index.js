@@ -37,6 +37,7 @@ function main() {
           .map(() => data);
 
   const futures = R.map(loadFTimestamped, laterMoments);
+  console.log('report path: ' + config.file.reportPattern());
   Future.parallel(1, futures)
     .map(R.compose(deriveStatistics, aggregatePayloads, cleanPayloads, R.unnest))
     .chain(saveFPayloads(config.file.reportPattern()))
