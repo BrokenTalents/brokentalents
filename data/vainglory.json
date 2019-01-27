@@ -17162,12 +17162,12 @@
 			}
 		},
 		"ylva" : {
-			"name" : "ylva",
+			"name" : "Ylva",
 			"thumb" : "ylva.png",
 			"difficulty" : "Hard",
 			"attack_type" : "Melee",
 			"description" : "",
-			"primary_role" : "Laner",
+			"primary_role" : "Jungler",
 			"ratings" : {
 				"offense" : 8,
 				"defense" : 2,
