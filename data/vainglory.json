@@ -17174,6 +17174,20 @@
 				"team_utility" : 8,
 				"mobility" : 1
 			}
+		},
+		"sanfeng" : {
+			"name" : "San Feng",
+			"thumb" : "sanfeng.png",
+			"difficulty" : "Medium",
+			"attack_type" : "Melee",
+			"description" : "",
+			"primary_role" : "Carry",
+			"ratings" : {
+				"offense" : 6,
+				"defense" : 8,
+				"team_utility" : 4,
+				"mobility" : 3
+			}
 		}
 	}
 }
