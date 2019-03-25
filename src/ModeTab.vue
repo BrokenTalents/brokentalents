@@ -79,13 +79,13 @@ import * as maps from './maps/maps.js';
 
 export default Vue.component('mode-tab', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       getHero: maps.getHero,
     };
   },
   computed: {
-    hasTalents: function() {
+    hasTalents() {
       return maps.hasTalents(this.selectedMode);
     },
   },

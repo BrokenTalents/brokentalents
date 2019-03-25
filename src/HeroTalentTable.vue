@@ -53,7 +53,7 @@ import * as maps from './maps/maps';
 
 export default Vue.component('hero-talent-table', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       getTalentName: maps.getTalentName,
       getLevelBuckets: ReportService.getLevelBuckets,
@@ -61,25 +61,25 @@ export default Vue.component('hero-talent-table', {
     };
   },
   computed: {
-    hasTalents: function() {
+    hasTalents() {
       return maps.hasTalents(this.selectedMode);
     },
-    totalPicks: function() {
+    totalPicks() {
       return ReportService.getTotalPicks(this.selectedMode);
     },
-    heroReport: function() {
+    heroReport() {
       return ReportService.getReport(this.selectedMode)
           .filter((entry) => entry.Actor == this.selectedActor)
           .sort((entry1, entry2) => maps.getTalentRarityIndex(entry1.Talent) - maps.getTalentRarityIndex(entry2.Talent));
     },
-    totalHeroReport: function() {
+    totalHeroReport() {
       return this.heroReport
         .map((entry) => ({ 'TotalWinner': entry.TotalPicks * entry.TotalWinner, 'TotalPicks': entry.TotalPicks }))
         .reduce((agg, cur) =>
           ({ 'TotalWinner': agg.TotalWinner + cur.TotalWinner, 'TotalPicks': agg.TotalPicks + cur.TotalPicks }),
           { 'TotalWinner': 0, 'TotalPicks': 0 });
     },
-    playersPerMatch: function() {
+    playersPerMatch() {
       return maps.playersPerMatch(this.selectedMode);
     },
   },

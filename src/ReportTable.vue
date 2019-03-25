@@ -112,7 +112,7 @@ import * as maps from './maps/maps';
 
 export default Vue.component('report-table', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       RARITIES: maps.RARITIES,
       getTalentName: maps.getTalentName,
@@ -123,7 +123,7 @@ export default Vue.component('report-table', {
     };
   },
   computed: {
-    report: function() {
+    report() {
       const giveTrue = (x) => true;
       const filters = [
         this.filterRarity != ''? (entry) => maps.getTalentRarity(entry.Talent) == this.filterRarity : giveTrue,
@@ -133,12 +133,12 @@ export default Vue.component('report-table', {
       return ReportService.getReport(this.selectedMode)
         .filter((entry) => filters.map((filter) => filter(entry)).reduce(and, true));
     },
-    totalPicks: function() {
+    totalPicks() {
       return ReportService.getTotalPicks(this.selectedMode);
     },
   },
   methods: {
-    downloadCsv: function() {
+    downloadCsv() {
       const csv = ReportService.getCsv(this.selectedMode);
       const downloaderElement = document.createElement('a');
       downloaderElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);

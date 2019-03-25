@@ -37,7 +37,7 @@ new Vue({
   router,
   el: '#app',
   render: h => h(App),
-  mounted: function() {
+  mounted() {
     if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
       this.$ga.event('PWA', 'started');
     }

@@ -88,7 +88,7 @@ import * as maps from './maps/maps';
 
 export default Vue.component('summaries', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       talentsVisible: false,
       winrateVisible: true,
@@ -98,14 +98,14 @@ export default Vue.component('summaries', {
     };
   },
   computed: {
-    summaries: function() {
+    summaries() {
       return ReportService.getSummaries(this.selectedMode)
         .filter((summary) => this.hasTalents? true : summary.key != 'Rarity');
     },
-    summary: function() {
+    summary() {
       return this.summaries.find((summary) => summary.key == [this.selectedTrait]);
     },
-    totalPicks: function() {
+    totalPicks() {
       return this.summary.data.map((entry) => entry.TotalPicks).reduce((agg, cur) => agg + cur, 0);
     },
   },

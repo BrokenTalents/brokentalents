@@ -36,23 +36,23 @@ import * as maps from './maps/maps';
 
 export default Vue.component('top-talents-box', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       getHero: maps.getHero,
       getTalentName: maps.getTalentName,
     };
   },
   computed: {
-    top10Talents: function() {
+    top10Talents() {
       return ReportService.getTop10Picks(this.selectedMode);
     },
-    hasTalents: function() {
+    hasTalents() {
       return maps.hasTalents(this.selectedMode);
     },
-    totalPicks: function() {
+    totalPicks() {
       return ReportService.getTotalPicks(this.selectedMode);
     },
-    playersPerMatch: function() {
+    playersPerMatch() {
       return maps.playersPerMatch(this.selectedMode);
     },
   },

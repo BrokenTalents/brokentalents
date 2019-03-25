@@ -33,7 +33,7 @@ import * as maps from './maps/maps';
 
 export default Vue.component('hero-draft-grid', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       actors: ReportService.getActors().sort(),
       getHero: maps.getHero,

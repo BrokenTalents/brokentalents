@@ -14,7 +14,7 @@ import * as maps from './maps/maps';
 export default Vue.component('hero-image', {
   props: [ 'actor', 'round' ],
   computed: {
-    hero: function() {
+    hero() {
       return maps.getHero(this.actor);
     },
   },

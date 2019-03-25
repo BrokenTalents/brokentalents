@@ -22,13 +22,13 @@
 import Vue from 'vue';
 
 export default Vue.component('install-notification', {
-  data: function() {
+  data() {
     return {
       deferredPrompt: undefined,
     };
   },
   methods: {
-    promptInstall: function(p) {
+    promptInstall(p) {
       this.$ga.event('PWA', 'available');
       p.preventDefault();
       this.deferredPrompt = p;
@@ -37,15 +37,15 @@ export default Vue.component('install-notification', {
         this.deferredPrompt = null;
       });
     },
-    installed: function(e) {
+    installed(e) {
       this.$ga.event('PWA', 'installed');
     },
   },
-  created: function() {
+  created() {
     window.addEventListener('beforeinstallprompt', this.promptInstall);
     window.addEventListener('appinstalled', this.installed);
   },
-  destroyed: function() {
+  destroyed() {
     window.removeEventListener('beforeinstallprompt', this.promptInstall);
     window.removeEventListener('appinstalled', this.installed);
   },

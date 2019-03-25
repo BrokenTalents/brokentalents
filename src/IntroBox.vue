@@ -25,31 +25,31 @@ import RouterParamMixin from './RouterParamMixin';
 
 export default Vue.component('intro-box', {
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       hideIntro: !!localStorage.getItem('hideIntro'),
       gaOptedOut: !!localStorage.getItem('gaOptOut'),
     };
   },
   methods: {
-    optOutAnalytics: function() {
+    optOutAnalytics() {
       this.$ga.disable();
       this.gaOptedOut = true;
     },
   },
-  created: function() {
+  created() {
     if (this.gaOptedOut) {
       this.$ga.disable();
     }
   },
   watch: {
-    hideIntro: function(value) {
+    hideIntro(value) {
       localStorage.setItem('hideIntro', value);
     },
-    gaOptedOut: function(value) {
+    gaOptedOut(value) {
       localStorage.setItem('gaOptOut', value);
     },
-    selectedMode: function(value) {
+    selectedMode(value) {
       this.hideIntro = !!localStorage.getItem('hideIntro');
     },
   },

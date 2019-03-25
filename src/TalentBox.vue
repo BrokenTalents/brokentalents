@@ -67,10 +67,10 @@ import * as maps from './maps/maps';
 export default Vue.component('talent-box', {
   props: ['title', 'content', 'entry', 'type', 'value', 'label'],
   computed: {
-    hero: function() {
+    hero() {
       return maps.getHero(this.entry.Actor);
     },
-    hasTalent: function() {
+    hasTalent() {
       return maps.getTalentRarity(this.entry.Talent) != 'None';
     },
   },

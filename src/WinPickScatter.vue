@@ -64,7 +64,7 @@ export default Vue.component('win-pick-scatter', {
       this.refresh();
     },
   },
-  data: function() {
+  data() {
     return {
       yMetric: 'TotalWinner',
       fixedXRange: false,

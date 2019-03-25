@@ -23,10 +23,10 @@ import * as maps from './maps/maps';
 export default Vue.component('talent-image', {
   props: [ 'entry', 'size' ],
   computed: {
-    hero: function() {
+    hero() {
       return maps.getHero(this.entry.Actor);
     },
-    rarity: function() {
+    rarity() {
       return maps.getTalentRarity(this.entry.Talent);
     },
   },

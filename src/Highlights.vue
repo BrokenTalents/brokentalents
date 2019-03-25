@@ -111,7 +111,7 @@ import * as maps from './maps/maps.js';
 export default Vue.component('highlights', {
   mixins: [ RouterParamMixin ],
   computed: {
-    stats: function() {
+    stats() {
       return {
         topWin: ReportService.getTopWin(this.selectedMode),
         topUnpopularWin: ReportService.getTopUnpopularWin(this.selectedMode),
@@ -127,7 +127,7 @@ export default Vue.component('highlights', {
         topBlitzPointsDelta: ReportService.getTopBlitzPointsDelta(this.selectedMode),
       };
     },
-    playersPerMatch: function() {
+    playersPerMatch() {
       return maps.playersPerMatch(this.selectedMode);
     },
   },

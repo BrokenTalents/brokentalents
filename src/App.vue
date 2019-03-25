@@ -76,7 +76,7 @@ import * as maps from './maps/maps';
 export default {
   name: 'App',
   mixins: [ RouterParamMixin ],
-  data: function() {
+  data() {
     return {
       totalMatches: Math.floor(ReportService.getTotalMatches()/100)*100,
       lastUpdate: ReportService.getLastUpdate(),
